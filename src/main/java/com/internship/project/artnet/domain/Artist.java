@@ -13,7 +13,7 @@ import java.util.Set;
 public class Artist extends Users {
 
 
-    private int phone;
+    private Integer phone;
     private String biographic;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "artist")

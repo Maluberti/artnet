@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UsersDTO {
-    private Long id;
+    private Long Id;
     private String name;
     private String email;
     private String password;
@@ -18,4 +18,13 @@ public class UsersDTO {
 
     @JsonProperty("user_url")
     private String userUrl;
+
+    public UsersDTO(Long Id, String name, String email, String password, Boolean isArtist, Boolean isAdmirer) {
+        this.Id = Id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.isArtist = isArtist;
+        this.isAdmirer = isAdmirer;
+    }
 }

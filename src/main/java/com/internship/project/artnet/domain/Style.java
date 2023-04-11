@@ -12,7 +12,7 @@ public class Style {
 
     private String style;
 
-    @ManyToMany(mappedBy = "styles") // as instrucoes da tabela de uniao vao estar atreladas a categories, campo de recipe
+    @ManyToMany(mappedBy = "styles")
     private Set<Artist> artists;
 }
 

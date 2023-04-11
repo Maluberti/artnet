@@ -2,6 +2,7 @@ package com.internship.project.artnet.controllers;
 
 import com.internship.project.artnet.model.UserListDTO;
 import com.internship.project.artnet.model.UsersDTO;
+import com.internship.project.artnet.services.AdmirerService;
 import com.internship.project.artnet.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -12,9 +13,11 @@ public class UserController {
     public static final String BASE_URL = "/users";
 
     private final UserService userService;
+    private final AdmirerService admirerService;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, AdmirerService admirerService) {
         this.userService = userService;
+        this.admirerService = admirerService;
     }
 
     @GetMapping
