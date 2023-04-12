@@ -6,7 +6,7 @@ import com.internship.project.artnet.model.AdmirerDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-@Mapper
+@Mapper(componentModel = "spring", uses = {WorkOfArtMapper.class, ArtistMapper.class, ExpositionMapper.class})
 public interface AdmirerMapper {
     AdmirerMapper INSTANCE = Mappers.getMapper(AdmirerMapper.class);
 

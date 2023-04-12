@@ -1,13 +1,10 @@
 package com.internship.project.artnet.services;
 
-import com.internship.project.artnet.controllers.AdmirerController;
 import com.internship.project.artnet.controllers.ClassificationController;
-import com.internship.project.artnet.domain.Admirer;
 import com.internship.project.artnet.domain.Classifications;
-import com.internship.project.artnet.mapper.ClassificationsMapper;
-import com.internship.project.artnet.model.AdmirerDetailsDTO;
-import com.internship.project.artnet.model.ClassificationsDTO;
-import com.internship.project.artnet.model.ClassificationsDetailsDTO;
+import com.internship.project.artnet.mapper.ClassificationMapper;
+import com.internship.project.artnet.model.ClassificationDTO;
+import com.internship.project.artnet.model.ClassificationDetailsDTO;
 import com.internship.project.artnet.repositories.ClassificationsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -16,66 +13,66 @@ import java.util.stream.Collectors;
 
 public class ClassificationsServiceImpl implements ClassificationsService{
     @Autowired
-    private final ClassificationsMapper classificationsMapper;
+    private final ClassificationMapper classificationMapper;
 
     @Autowired
     private final ClassificationsRepository classificationsRepository;
 
-    public ClassificationsServiceImpl(ClassificationsMapper classificationsMapper, ClassificationsRepository classificationsRepository) {
-        this.classificationsMapper = classificationsMapper;
+    public ClassificationsServiceImpl(ClassificationMapper classificationMapper, ClassificationsRepository classificationsRepository) {
+        this.classificationMapper = classificationMapper;
         this.classificationsRepository = classificationsRepository;
     }
 
     @Override
-    public List<ClassificationsDetailsDTO> getAllClassifications() {
-        List<ClassificationsDetailsDTO> classificationsDetailsDTOS =
+    public List<ClassificationDetailsDTO> getAllClassifications() {
+        List<ClassificationDetailsDTO> classificationDetailsDTOS =
                 classificationsRepository.findAll()
                         .stream()
                         .map(classifications -> {
-                            ClassificationsDetailsDTO classificationsDetailsDTO = classificationsMapper.classificationsToClassificationsDTO(classifications);
-                            classificationsDetailsDTO.setClassifUrl(getClassificationUrl(classifications.getId()));
-                            return classificationsDetailsDTO;
+                            ClassificationDetailsDTO classificationDetailsDTO = classificationMapper.classificationsToClassificationsDTO(classifications);
+                            classificationDetailsDTO.setClassiicationfUrl(getClassificationUrl(classifications.getId()));
+                            return classificationDetailsDTO;
                         })
                         .collect(Collectors.toList());
 
-        return classificationsDetailsDTOS;
+        return classificationDetailsDTOS;
     }
 
     @Override
-    public ClassificationsDetailsDTO getClassificationById(Long id) {
+    public ClassificationDetailsDTO getClassificationById(Long id) {
         return classificationsRepository.findById(id)
-                .map(classificationsMapper::classificationsToClassificationsDTO)
+                .map(classificationMapper::classificationsToClassificationsDTO)
                 .map(classificationsDTO -> {
-                    classificationsDTO.setClassifUrl(getClassificationUrl(id));
+                    classificationsDTO.setClassiicationfUrl(getClassificationUrl(id));
                     return classificationsDTO;
                 })
                 .orElseThrow(ResourceNotFoundException::new);
     }
 
     @Override
-    public ClassificationsDetailsDTO createNewClassification(ClassificationsDTO classificationDTO) {
-        return saveAndReturnDTO(classificationsMapper.classificationsDTOToClassifications(classificationDTO));
+    public ClassificationDetailsDTO createNewClassification(ClassificationDTO classificationDTO) {
+        return saveAndReturnDTO(classificationMapper.classificationsDTOToClassifications(classificationDTO));
     }
 
     @Override
-    public ClassificationsDetailsDTO saveClassificationByDTO(Long id, ClassificationsDetailsDTO classificationsDetailsDTO) {
-        Classifications classifications = classificationsMapper.classificationsDTOToClassifications(classificationsDetailsDTO);
+    public ClassificationDetailsDTO saveClassificationByDTO(Long id, ClassificationDetailsDTO classificationDetailsDTO) {
+        Classifications classifications = classificationMapper.classificationsDTOToClassifications(classificationDetailsDTO);
         classifications.setId(id);
 
         return saveAndReturnDTO(classifications);
     }
 
     @Override
-    public ClassificationsDetailsDTO patchClassification(Long id, ClassificationsDetailsDTO classificationsDetailsDTO) {
+    public ClassificationDetailsDTO patchClassification(Long id, ClassificationDetailsDTO classificationDetailsDTO) {
         return classificationsRepository.findById(id).map(admirer -> {
 
-            if(classificationsDetailsDTO.getName() != null){
-                admirer.setName(classificationsDetailsDTO.getName());
+            if(classificationDetailsDTO.getName() != null){
+                admirer.setName(classificationDetailsDTO.getName());
             }
 
-            ClassificationsDetailsDTO returnDto = classificationsMapper.classificationsToClassificationsDTO(classificationsRepository.save(admirer));
+            ClassificationDetailsDTO returnDto = classificationMapper.classificationsToClassificationsDTO(classificationsRepository.save(admirer));
 
-            returnDto.setClassifUrl(getClassificationUrl(id));
+            returnDto.setClassiicationfUrl(getClassificationUrl(id));
 
             return returnDto;
 
@@ -92,12 +89,12 @@ public class ClassificationsServiceImpl implements ClassificationsService{
         return ClassificationController.BASE_URL + "/" + id;
     }
 
-    private ClassificationsDetailsDTO saveAndReturnDTO(Classifications classification) {
+    private ClassificationDetailsDTO saveAndReturnDTO(Classifications classification) {
         Classifications savedClassification = classificationsRepository.save(classification);
 
-        ClassificationsDetailsDTO returnDto = classificationsMapper.classificationsToClassificationsDTO(savedClassification);
+        ClassificationDetailsDTO returnDto = classificationMapper.classificationsToClassificationsDTO(savedClassification);
 
-        returnDto.setClassifUrl(getClassificationUrl(savedClassification.getId()));
+        returnDto.setClassiicationfUrl(getClassificationUrl(savedClassification.getId()));
 
         return returnDto;
     }

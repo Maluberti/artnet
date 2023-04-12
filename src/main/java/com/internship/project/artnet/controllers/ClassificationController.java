@@ -1,6 +1,5 @@
 package com.internship.project.artnet.controllers;
 
-import com.internship.project.artnet.domain.Classifications;
 import com.internship.project.artnet.model.*;
 import com.internship.project.artnet.services.ClassificationsService;
 import org.springframework.http.HttpStatus;
@@ -19,33 +18,33 @@ public class ClassificationController {
     }
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public ClassificationsListDTO getListOfClassifications()
+    public ClassificationListDTO getListOfClassifications()
     {
-        return new ClassificationsListDTO(classificationsService.getAllClassifications());
+        return new ClassificationListDTO(classificationsService.getAllClassifications());
     }
 
     @GetMapping({"/{id}"})
     @ResponseStatus(HttpStatus.OK)
-    public ClassificationsDetailsDTO getClassificationById(@PathVariable Long id){
+    public ClassificationDetailsDTO getClassificationById(@PathVariable Long id){
         return classificationsService.getClassificationById(id);
     }
 
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ClassificationsDetailsDTO createNewClassification(@RequestBody ClassificationsDTO classificationsDTO){
-        return classificationsService.createNewClassification(classificationsDTO);
+    public ClassificationDetailsDTO createNewClassification(@RequestBody ClassificationDTO classificationDTO){
+        return classificationsService.createNewClassification(classificationDTO);
     }
 
     @PutMapping({"/{id}"})
     @ResponseStatus(HttpStatus.OK)
-    public ClassificationsDetailsDTO updateClassification(@PathVariable Long id, @RequestBody ClassificationsDetailsDTO classificationDTO){
+    public ClassificationDetailsDTO updateClassification(@PathVariable Long id, @RequestBody ClassificationDetailsDTO classificationDTO){
         return classificationsService.saveClassificationByDTO(id, classificationDTO);
     }
 
     @PatchMapping({"/{id}"})
     @ResponseStatus(HttpStatus.OK)
-    public ClassificationsDetailsDTO patchClassification(@PathVariable Long id, @RequestBody ClassificationsDetailsDTO classificationDTO){
+    public ClassificationDetailsDTO patchClassification(@PathVariable Long id, @RequestBody ClassificationDetailsDTO classificationDTO){
         return classificationsService.patchClassification(id, classificationDTO);
     }
 

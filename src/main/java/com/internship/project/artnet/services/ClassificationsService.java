@@ -1,22 +1,20 @@
 package com.internship.project.artnet.services;
 
-import com.internship.project.artnet.model.AdmirerDTO;
-import com.internship.project.artnet.model.AdmirerDetailsDTO;
-import com.internship.project.artnet.model.ClassificationsDTO;
-import com.internship.project.artnet.model.ClassificationsDetailsDTO;
+import com.internship.project.artnet.model.ClassificationDTO;
+import com.internship.project.artnet.model.ClassificationDetailsDTO;
 
 import java.util.List;
 
 public interface ClassificationsService {
-    List<ClassificationsDetailsDTO> getAllClassifications();
+    List<ClassificationDetailsDTO> getAllClassifications();
 
-    ClassificationsDetailsDTO getClassificationById(Long id);
+    ClassificationDetailsDTO getClassificationById(Long id);
 
-    ClassificationsDetailsDTO createNewClassification(ClassificationsDTO classificationDTO);
+    ClassificationDetailsDTO createNewClassification(ClassificationDTO classificationDTO);
 
-    ClassificationsDetailsDTO saveClassificationByDTO(Long id, ClassificationsDetailsDTO classificationDTO);
+    ClassificationDetailsDTO saveClassificationByDTO(Long id, ClassificationDetailsDTO classificationDTO);
 
-    ClassificationsDetailsDTO patchClassification(Long id, ClassificationsDetailsDTO classificationDTO);
+    ClassificationDetailsDTO patchClassification(Long id, ClassificationDetailsDTO classificationDTO);
 
     void deleteClassificationById(Long id);
 }

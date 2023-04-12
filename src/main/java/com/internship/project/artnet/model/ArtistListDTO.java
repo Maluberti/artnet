@@ -8,9 +8,9 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 public class ArtistListDTO {
-    List<ArtistDetailsDTO> artists = null;
+    List<ArtistDTO> artists = null;
 
-    public ArtistListDTO(List<ArtistDetailsDTO> users) {
+    public ArtistListDTO(List<ArtistDTO> artists) {
         this.artists = artists;
     }
 }

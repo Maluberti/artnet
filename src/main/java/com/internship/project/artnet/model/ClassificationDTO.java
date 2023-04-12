@@ -8,11 +8,12 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ClassificationsDTO {
-    private Long id;
+public class ClassificationDTO {
     private String name;
 
-    @JsonProperty("classif_url")
-    private String classifUrl;
+    @JsonProperty("classification_url")
+    private String classificationUrl;
 
 }
+
+

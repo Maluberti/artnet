@@ -25,13 +25,12 @@ public class UserMapperTest {
     @Test
     public void userToUserDTO() throws Exception {
         //given
-        Users user = new Users(7l, NAME, EMAIL, PASSWORD, IS_ARTIST,IS_ADMIRER);
+        Users user = new Users( NAME, EMAIL, PASSWORD, IS_ARTIST,IS_ADMIRER);
 
         //when
         UsersDTO userDTO = userMapper.userToUserDTO(user);
 
         //then
-        assertEquals(user.getId(), userDTO.getId());
         assertEquals(user.getName(), userDTO.getName());
         assertEquals(user.getEmail(), userDTO.getEmail());
         assertEquals(user.getPassword(), userDTO.getPassword());
@@ -42,13 +41,12 @@ public class UserMapperTest {
     @Test
     public void userDTOtoUser() throws Exception {
         //given
-        UsersDTO userDTO = new UsersDTO(1l, NAME, EMAIL,PASSWORD,IS_ARTIST,IS_ADMIRER);
+        UsersDTO userDTO = new UsersDTO( NAME, EMAIL,PASSWORD,IS_ARTIST,IS_ADMIRER);
 
         //when
         Users user = userMapper.userDTOToUser(userDTO);
 
         //then
-        assertEquals(userDTO.getId(), user.getId());
         assertEquals(userDTO.getName(), user.getName());
         assertEquals(userDTO.getEmail(), user.getEmail());
         assertEquals(userDTO.getPassword(), user.getPassword());

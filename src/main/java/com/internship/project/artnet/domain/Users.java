@@ -21,4 +21,11 @@ public class Users {
     private Boolean isArtist;
     private Boolean isAdmirer;
 
+    public Users(String name, String email, String password, Boolean isArtist, Boolean isAdmirer) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.isArtist = isArtist;
+        this.isAdmirer = isAdmirer;
+    }
 }

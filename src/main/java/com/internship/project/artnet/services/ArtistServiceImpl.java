@@ -1,11 +1,8 @@
 package com.internship.project.artnet.services;
 
-import com.internship.project.artnet.controllers.AdmirerController;
 import com.internship.project.artnet.controllers.ArtistController;
-import com.internship.project.artnet.domain.Admirer;
 import com.internship.project.artnet.domain.Artist;
 import com.internship.project.artnet.mapper.ArtistMapper;
-import com.internship.project.artnet.model.AdmirerDetailsDTO;
 import com.internship.project.artnet.model.ArtistDTO;
 import com.internship.project.artnet.model.ArtistDetailsDTO;
 import com.internship.project.artnet.repositories.ArtistRepository;
