@@ -1,5 +1,6 @@
 package com.internship.project.artnet.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.internship.project.artnet.domain.Admirer;
 import com.internship.project.artnet.domain.Classifications;
 import com.internship.project.artnet.domain.Exposition;
@@ -13,13 +14,14 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class WorkOfArtDTO {
+    private Long id;
     private String name;
     private String concept;
-    private Date date_exp;
     private Double price;
+    private ClassificationDTO classification;
+    private Long expositionId;
 
-    private Classifications classification;
-    private Admirer admirer;
-    private Exposition exposition;
+    @JsonProperty("work_url")
+    private String workOfArtUrl;
 
 }

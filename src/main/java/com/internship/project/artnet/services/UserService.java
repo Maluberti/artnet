@@ -1,20 +1,20 @@
 package com.internship.project.artnet.services;
 
 
-import com.internship.project.artnet.model.UsersDTO;
+import com.internship.project.artnet.domain.Users;
 
 import java.util.List;
 
 public interface UserService {
-    List<UsersDTO> getAllUsers();
+    List<Users> getAllUsers();
 
-    UsersDTO getUserById(Long id);
+    Users getUserById(Long id);
 
-    UsersDTO createNewUser(UsersDTO userDTO);
+    Users createNewUser(Users user);
 
-    UsersDTO saveUserByDTO(Long id, UsersDTO userDTO);
+    Users updateUserById(Long id, Users user);
 
-    UsersDTO patchUser(Long id, UsersDTO userDTO);
+    Users patchUser(Long id, Users user);
 
     void deleteUserById(Long id);
 }

@@ -28,5 +28,12 @@ public class Admirer extends Users {
             inverseJoinColumns = @JoinColumn(name = "exposition_id"))  // do outro lado os id da categoria
     private Set<Exposition> expositions = new HashSet<>();
 
+    public Admirer(String name, String email, String password, Boolean isArtist, Boolean isAdmirer, Boolean is_shark) {
+        super(name, email, password, isArtist, isAdmirer);
+        this.is_shark = is_shark;
+    }
+
+
+
 }
 

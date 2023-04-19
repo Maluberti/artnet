@@ -2,9 +2,10 @@ package com.internship.project.artnet.services;
 
 import com.internship.project.artnet.controllers.ArtistController;
 import com.internship.project.artnet.domain.Artist;
+import com.internship.project.artnet.domain.Exposition;
 import com.internship.project.artnet.mapper.ArtistMapper;
 import com.internship.project.artnet.model.ArtistDTO;
-import com.internship.project.artnet.model.ArtistDetailsDTO;
+import com.internship.project.artnet.model.ExpositionListDTO;
 import com.internship.project.artnet.repositories.ArtistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,92 +17,70 @@ import java.util.stream.Collectors;
 public class ArtistServiceImpl implements ArtistService{
 
     @Autowired
-    private final ArtistMapper artistMapper;
-
-    @Autowired
     private final ArtistRepository artistRepository;
 
     public ArtistServiceImpl(ArtistMapper artistMapper, ArtistRepository artistRepository) {
-        this.artistMapper = artistMapper;
         this.artistRepository = artistRepository;
     }
 
 
     @Override
-    public List<ArtistDetailsDTO> getAllArtist() {
-        List<ArtistDetailsDTO> artistDetailsDTOS =
-                artistRepository.findAll()
-                        .stream()
-                        .map(artist -> {
-                            ArtistDetailsDTO artistDetailsDTO = artistMapper.artistToArtistDTO(artist);
-                            artistDetailsDTO.setArtistUrl(getArtistUrl(artist.getId()));
-                            return artistDetailsDTO;
-                        })
-                        .collect(Collectors.toList());
-
-        return artistDetailsDTOS;
+    public List<Artist> getAllArtist() {
+        return artistRepository.findAll();
     }
 
     @Override
-    public ArtistDetailsDTO getArtistById(Long id) {
+    public Artist getArtistById(Long id) {
         return artistRepository.findById(id)
-                .map(artistMapper::artistToArtistDTO)
-                .map(artistDTO -> {
-                    artistDTO.setArtistUrl(getArtistUrl(id));
-                    return artistDTO;
-                })
-                .orElseThrow(ResourceNotFoundException::new);
+                .orElseThrow(() -> new ResourceNotFoundException("Artist " + id + " not found!"));
     }
 
     @Override
-    public ArtistDetailsDTO createNewArtist(ArtistDTO artistDTO) {
-        return saveAndReturnDTO(artistMapper.artistDTOToArtist(artistDTO));
+    public Artist createNewArtist(Artist artist) {
+        return artistRepository.save(artist);
     }
 
     @Override
-    public ArtistDetailsDTO saveArtistByDTO(Long id, ArtistDetailsDTO artistDetailsDTO) {
-        Artist artist = artistMapper.artistDTOToArtist(artistDetailsDTO);
+    public Artist updateArtistById(Long id, Artist artist) {
+        artistRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Artist " + id + " not found!"));
         artist.setId(id);
+        return artistRepository.save(artist);
 
-        return saveAndReturnDTO(artist);
     }
 
     @Override
-    public ArtistDetailsDTO patchArtist(Long id, ArtistDetailsDTO artistDetailsDTO) {
-        return artistRepository.findById(id).map(artist -> {
+    public Artist patchArtist(Long id, Artist artist) {
+        return artistRepository.findById(id).map(savedArtist -> {
 
-            if(artistDetailsDTO.getName() != null){
-                artist.setName(artistDetailsDTO.getName());
+            if(artist.getName() != null){
+                savedArtist.setName(artist.getName());
             }
 
-            if(artistDetailsDTO.getEmail() != null){
-                artist.setEmail(artistDetailsDTO.getEmail());
+            if(artist.getEmail() != null){
+                savedArtist.setEmail(artist.getEmail());
             }
 
-            if(artistDetailsDTO.getPassword() != null){
-                artist.setPassword(artistDetailsDTO.getPassword());
+            if(artist.getPassword() != null){
+                savedArtist.setPassword(artist.getPassword());
             }
 
-            if(artistDetailsDTO.getIsArtist() != null){
-                artist.setIsArtist(artistDetailsDTO.getIsArtist());
+            if(artist.getIsArtist() != null){
+                savedArtist.setIsArtist(artist.getIsArtist());
             }
-            if(artistDetailsDTO.getIsAdmirer() != null){
-                artist.setIsAdmirer(artistDetailsDTO.getIsAdmirer());
+            if(artist.getIsAdmirer() != null){
+                savedArtist.setIsAdmirer(artist.getIsAdmirer());
             }
-            if(artistDetailsDTO.getPhone() != null){
-                artist.setPhone(artistDetailsDTO.getPhone());
+            if(artist.getPhone() != null){
+                savedArtist.setPhone(artist.getPhone());
             }
-            if(artistDetailsDTO.getBiographic() != null){
-                artist.setBiographic(artistDetailsDTO.getBiographic());
+            if(artist.getBiographic() != null){
+                savedArtist.setBiographic(artist.getBiographic());
             }
 
-            ArtistDetailsDTO returnDto = artistMapper.artistToArtistDTO(artistRepository.save(artist));
+            return artistRepository.save(savedArtist);
 
-            returnDto.setArtistUrl(getArtistUrl(id));
-
-            return returnDto;
-
-        }).orElseThrow(ResourceNotFoundException::new);
+        }).orElseThrow(() -> new ResourceNotFoundException("Artist " + id + " not found!"));
     }
 
     @Override
@@ -110,18 +89,13 @@ public class ArtistServiceImpl implements ArtistService{
 
     }
 
-    // aux methods
-    private String getArtistUrl(Long id) {
-        return ArtistController.BASE_URL + "/" + id;
+
+
+    @Override
+    public List<Exposition> getAllExpositionsByArtistId(Long id) {
+        Artist artist = artistRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Artist" + id + "not found"));
+        return (List<Exposition>) artist.getExpositions();
     }
 
-    private ArtistDetailsDTO saveAndReturnDTO(Artist artist) {
-        Artist savedArtist = artistRepository.save(artist);
-
-        ArtistDetailsDTO returnDto = artistMapper.artistToArtistDTO(savedArtist);
-
-        returnDto.setArtistUrl(getArtistUrl(savedArtist.getId()));
-
-        return returnDto;
-    }
 }

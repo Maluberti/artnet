@@ -10,8 +10,7 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ExpositionDTO {
-    private Long id;
+public class ExpositionCreateDTO {
     private String name;
     private String concept;
     private String inspiration;

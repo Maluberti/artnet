@@ -28,6 +28,11 @@ public class Artist extends Users {
             inverseJoinColumns = @JoinColumn(name = "style_id"))  // do outro lado os id da categoria
     private Set<Style> styles = new HashSet<>();
 
+    public Artist(String name, String email, String password, Boolean isArtist, Boolean isAdmirer, Integer phone, String biographic) {
+        super(name, email, password, isArtist, isAdmirer);
+        this.phone = phone;
+        this.biographic = biographic;
+    }
 
 }
 

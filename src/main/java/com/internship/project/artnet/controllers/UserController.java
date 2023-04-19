@@ -1,11 +1,16 @@
 package com.internship.project.artnet.controllers;
 
+import com.internship.project.artnet.domain.Users;
+import com.internship.project.artnet.mapper.UserMapper;
+import com.internship.project.artnet.model.UserCreateDTO;
 import com.internship.project.artnet.model.UserListDTO;
 import com.internship.project.artnet.model.UsersDTO;
 import com.internship.project.artnet.services.AdmirerService;
 import com.internship.project.artnet.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(UserController.BASE_URL)
@@ -14,46 +19,75 @@ public class UserController {
 
     private final UserService userService;
     private final AdmirerService admirerService;
+    private final UserMapper userMapper;
 
-    public UserController(UserService userService, AdmirerService admirerService) {
+    public UserController(UserService userService, AdmirerService admirerService, UserMapper userMapper) {
         this.userService = userService;
         this.admirerService = admirerService;
+        this.userMapper = userMapper;
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public UserListDTO getListOfUsers(){
-        return new UserListDTO(userService.getAllUsers());
+        return new  UserListDTO( userService.getAllUsers()
+        .stream()
+                .map(this::toDTO)
+                .collect(Collectors.toList()));
+
     }
 
     @GetMapping({"/{id}"})
     @ResponseStatus(HttpStatus.OK)
     public UsersDTO getUserById(@PathVariable Long id){
-        return userService.getUserById(id);
+        return toDTO(userService.getUserById(id));
     }
 
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public UsersDTO createNewUser(@RequestBody UsersDTO userDTO){
-        return userService.createNewUser(userDTO);
+    public UsersDTO createNewUser(@RequestBody UserCreateDTO userDTO){
+
+        return toDTO(userService.createNewUser(toUsers(userDTO)));
     }
 
     @PutMapping({"/{id}"})
     @ResponseStatus(HttpStatus.OK)
-    public UsersDTO updateUser(@PathVariable Long id, @RequestBody UsersDTO userDTO){
-        return userService.saveUserByDTO(id, userDTO);
+    public UsersDTO updateUser(@PathVariable Long id, @RequestBody UserCreateDTO userDTO){
+        Users user = toUsers(userDTO);
+        return toDTO(userService.updateUserById(id, user));
     }
 
     @PatchMapping({"/{id}"})
     @ResponseStatus(HttpStatus.OK)
-    public UsersDTO patchUser(@PathVariable Long id, @RequestBody UsersDTO userDTO){
-        return userService.patchUser(id, userDTO);
+    public UsersDTO patchUser(@PathVariable Long id, @RequestBody UserCreateDTO userDTO){
+
+        return toDTO(userService.patchUser(id, toUsers(userDTO)));
     }
 
     @DeleteMapping({"/{id}"})
     @ResponseStatus(HttpStatus.OK)
     public void deleteUser(@PathVariable Long id){
         userService.deleteUserById(id);
+    }
+
+    // aux
+
+    private UsersDTO toDTO (Users user){
+        UsersDTO userDTO = userMapper.userToUserDTO(user);
+        userDTO.setUserUrl(getUserUrl(user.getId()));
+        return userDTO;
+    }
+
+    private Users toUsers (UsersDTO userDTO){
+        return userMapper.userDTOToUser(userDTO);
+    }
+
+    private Users toUsers (UserCreateDTO userDTO){
+        return userMapper.userDTOToUser(userDTO);
+    }
+
+    private String getUserUrl(Long id) {
+        return UserController.BASE_URL + "/" + id;
     }
 }

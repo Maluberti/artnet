@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ArtistDTO extends UsersDTO{
+    private Long id;
     private Integer phone;
     private String biographic;
 

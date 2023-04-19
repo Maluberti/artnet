@@ -1,20 +1,30 @@
 package com.internship.project.artnet.services;
 
-import com.internship.project.artnet.model.AdmirerDetailsDTO;
-import com.internship.project.artnet.model.AdmirerDTO;
+import com.internship.project.artnet.domain.Admirer;
+import com.internship.project.artnet.domain.Artist;
+import com.internship.project.artnet.domain.Exposition;
+import com.internship.project.artnet.domain.WorkOfArt;
 
+import java.util.Arrays;
 import java.util.List;
 
 public interface AdmirerService {
-    List<AdmirerDetailsDTO> getAllAdmirers();
+    List<Admirer> getAllAdmirers();
 
-    AdmirerDetailsDTO getAdmirerById(Long id);
+    Admirer getAdmirerById(Long id);
 
-    AdmirerDetailsDTO createNewAdmirer(AdmirerDTO admirerDTO);
+    Admirer createNewAdmirer(Admirer admirer);
 
-    AdmirerDetailsDTO saveAdmirerByDTO(Long id, AdmirerDetailsDTO admirerDetailsDTO);
+    Admirer updateAdmirerById(Long id, Admirer admirer);
 
-    AdmirerDetailsDTO patchAdmirer(Long id, AdmirerDetailsDTO admirerDetailsDTO);
+    Admirer patchAdmirer(Long id, Admirer admirer);
 
     void deleteAdmirerById(Long id);
+
+    List<WorkOfArt> getAcquiredWorkOfArtsById(Long id);
+
+    List<Exposition> getVisitedExpositionsById(Long id);
+
+    List<Artist> getFavoriteArtistsById(Long id);
 }
+

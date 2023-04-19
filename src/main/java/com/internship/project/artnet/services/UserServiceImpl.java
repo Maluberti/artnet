@@ -1,17 +1,14 @@
 package com.internship.project.artnet.services;
 
 
-import com.internship.project.artnet.controllers.UserController;
 import com.internship.project.artnet.domain.Users;
 import com.internship.project.artnet.mapper.UserMapper;
-import com.internship.project.artnet.model.UserListDTO;
 import com.internship.project.artnet.model.UsersDTO;
 import com.internship.project.artnet.repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -26,92 +23,63 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UsersDTO> getAllUsers() {
-        List<UsersDTO> userDTOS =
-                userRepository.findAll()
-                        .stream()
-                        .map(user -> {
-                            UsersDTO userDTO = userMapper.userToUserDTO(user);
-                            userDTO.setUserUrl(getUserUrl(user.getId()));
-                            return userDTO;
-                        })
-                        .collect(Collectors.toList());
-
-        return userDTOS;
+    public List<Users> getAllUsers() {
+        List<Users> users = userRepository.findAll();
+        return users;
     }
 
     @Override
-    public UsersDTO getUserById(Long id) {
+    public Users getUserById(Long id) {
 
         return userRepository.findById(id)
-                .map(userMapper::userToUserDTO)
-                .map(userDTO -> {
-                    //set API URL
-                    userDTO.setUserUrl(getUserUrl(id));
-                    return userDTO;
-                })
-                .orElseThrow(ResourceNotFoundException::new);
-    }
+                .orElseThrow(() -> new ResourceNotFoundException("User " + id + " not found!"));
 
+    }
     @Override
-    public UsersDTO createNewUser(UsersDTO userDTO) {
-
-        return saveAndReturnDTO(userMapper.userDTOToUser(userDTO));
-    }
-
-    private UsersDTO saveAndReturnDTO(Users user) {
+    public Users createNewUser(Users user) {
         Users savedUser = userRepository.save(user);
+        return savedUser;
 
-        UsersDTO returnDto = userMapper.userToUserDTO(savedUser);
-
-        returnDto.setUserUrl(getUserUrl(savedUser.getId()));
-
-        return returnDto;
     }
 
     @Override
-    public UsersDTO saveUserByDTO(Long id, UsersDTO userDTO) {
-        Users user = userMapper.userDTOToUser(userDTO);
+    public Users updateUserById(Long id, Users user) {
+        userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User" + id + "not found"));
         user.setId(id);
 
-        return saveAndReturnDTO(user);
+        return userRepository.save(user);
     }
 
     @Override
-    public UsersDTO patchUser(Long id, UsersDTO userDTO) {
-        return userRepository.findById(id).map(user -> {
+    public Users patchUser(Long id, Users user) {
+        return userRepository.findById(id).map(savedUser -> {
 
-            if(userDTO.getName() != null){
-                user.setName(userDTO.getName());
+            if(user.getName() != null){
+                savedUser.setName(user.getName());
             }
 
-            if(userDTO.getEmail() != null){
-                user.setEmail(userDTO.getEmail());
+            if(user.getEmail() != null){
+                savedUser.setEmail(user.getEmail());
             }
 
-            if(userDTO.getPassword() != null){
-                user.setPassword(userDTO.getPassword());
+            if(user.getPassword() != null){
+                savedUser.setPassword(user.getPassword());
             }
 
-            if(userDTO.getIsArtist() != null){
-                user.setIsArtist(userDTO.getIsArtist());
+            if(user.getIsArtist() != null){
+                savedUser.setIsArtist(user.getIsArtist());
             }
-            if(userDTO.getIsAdmirer() != null){
-                user.setIsAdmirer(userDTO.getIsAdmirer());
+            if(user.getIsAdmirer() != null){
+                savedUser.setIsAdmirer(user.getIsAdmirer());
             }
 
-            UsersDTO returnDto = userMapper.userToUserDTO(userRepository.save(user));
+            return userRepository.save(savedUser);
 
-            returnDto.setUserUrl(getUserUrl(id));
-
-            return returnDto;
-
-        }).orElseThrow(ResourceNotFoundException::new);
+        }).orElseThrow(() -> new ResourceNotFoundException("User" + id + "not found"));
     }
 
-    private String getUserUrl(Long id) {
-        return UserController.BASE_URL + "/" + id;
-    }
+
 
     @Override
     public void deleteUserById(Long id) {

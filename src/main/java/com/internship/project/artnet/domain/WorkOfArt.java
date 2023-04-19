@@ -16,7 +16,6 @@ public class WorkOfArt {
 
     private String name;
     private String concept;
-    private Date date_exp;
     private Double price;
 
 
@@ -25,6 +24,7 @@ public class WorkOfArt {
     @ManyToOne
     private Admirer admirer;
     @ManyToOne
+    @JoinColumn(name = "exposition_id")
     private Exposition exposition;
     @OneToMany( mappedBy = "work") //mappedby define quem eh a tabela pai -- nesse caso recipe eh a tabela pai e na relacao manytoone quem recebe a chave estrangeira eh ingredients que eh a tabela filho
     private Set<WorkOfArt_Images> images = new HashSet<>();

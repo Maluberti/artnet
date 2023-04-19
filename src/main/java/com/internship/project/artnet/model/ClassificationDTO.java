@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ClassificationDTO {
+    private Long id;
     private String name;
 
     @JsonProperty("classification_url")

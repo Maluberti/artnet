@@ -2,15 +2,16 @@ package com.internship.project.artnet.services;
 
 import com.internship.project.artnet.controllers.AdmirerController;
 import com.internship.project.artnet.domain.Admirer;
+import com.internship.project.artnet.domain.Artist;
+import com.internship.project.artnet.domain.Exposition;
+import com.internship.project.artnet.domain.WorkOfArt;
 import com.internship.project.artnet.mapper.AdmirerMapper;
 import com.internship.project.artnet.model.AdmirerDetailsDTO;
-import com.internship.project.artnet.model.AdmirerDTO;
 import com.internship.project.artnet.repositories.AdmirerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class AdmirerServiceImpl implements AdmirerService{
@@ -26,82 +27,86 @@ public class AdmirerServiceImpl implements AdmirerService{
     }
 
     @Override
-    public List<AdmirerDetailsDTO> getAllAdmirers() {
-        List<AdmirerDetailsDTO> admirerDetailsDTOS =
-                admirerRepository.findAll()
-                        .stream()
-                        .map(admirer -> {
-                            AdmirerDetailsDTO admirerDetailsDTO = admirerMapper.admirerToAdmirerDTO(admirer);
-                            admirerDetailsDTO.setAdmirerUrl(getAdmirerUrl(admirer.getId()));
-                            return admirerDetailsDTO;
-                        })
-                        .collect(Collectors.toList());
+    public List<Admirer> getAllAdmirers() {
 
-        return admirerDetailsDTOS;
+        return admirerRepository.findAll();
     }
 
     @Override
-    public AdmirerDetailsDTO getAdmirerById(Long id) {
+    public Admirer getAdmirerById(Long id) {
         return admirerRepository.findById(id)
-                .map(admirerMapper::admirerToAdmirerDTO)
-                .map(admirerDTO -> {
-                    admirerDTO.setAdmirerUrl(getAdmirerUrl(id));
-                    return admirerDTO;
-                })
-                .orElseThrow(ResourceNotFoundException::new);
+                .orElseThrow(() -> new ResourceNotFoundException("User " + id + " not found!"));
     }
 
     @Override
-    public AdmirerDetailsDTO createNewAdmirer(AdmirerDTO admirerDTO) {
-        return saveAndReturnDTO(admirerMapper.admirerDTOToAdmirer(admirerDTO));
+    public Admirer createNewAdmirer(Admirer admirer) {
+        return admirerRepository.save(admirer);
     }
 
     @Override
-    public AdmirerDetailsDTO saveAdmirerByDTO(Long id, AdmirerDetailsDTO admirerDetailsDTO) {
-        Admirer admirer = admirerMapper.admirerDTOToAdmirer(admirerDetailsDTO);
+    public Admirer updateAdmirerById(Long id, Admirer admirer) {
+        admirerRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Admirer" + id + "not found"));
         admirer.setId(id);
 
-        return saveAndReturnDTO(admirer);
+        return admirerRepository.save(admirer);
     }
 
     @Override
-    public AdmirerDetailsDTO patchAdmirer(Long id, AdmirerDetailsDTO admirerDetailsDTO) {
-        return admirerRepository.findById(id).map(admirer -> {
+    public Admirer patchAdmirer(Long id, Admirer admirer) {
+        return admirerRepository.findById(id).map(savedAdmirer -> {
 
-            if(admirerDetailsDTO.getName() != null){
-                admirer.setName(admirerDetailsDTO.getName());
+            if(admirer.getName() != null){
+                savedAdmirer.setName(admirer.getName());
             }
 
-            if(admirerDetailsDTO.getEmail() != null){
-                admirer.setEmail(admirerDetailsDTO.getEmail());
+            if(admirer.getEmail() != null){
+                savedAdmirer.setEmail(admirer.getEmail());
             }
 
-            if(admirerDetailsDTO.getPassword() != null){
-                admirer.setPassword(admirerDetailsDTO.getPassword());
+            if(admirer.getPassword() != null){
+                savedAdmirer.setPassword(admirer.getPassword());
             }
 
-            if(admirerDetailsDTO.getIsArtist() != null){
-                admirer.setIsArtist(admirerDetailsDTO.getIsArtist());
+            if(admirer.getIsArtist() != null){
+                savedAdmirer.setIsArtist(admirer.getIsArtist());
             }
-            if(admirerDetailsDTO.getIsAdmirer() != null){
-                admirer.setIsAdmirer(admirerDetailsDTO.getIsAdmirer());
+            if(admirer.getIsAdmirer() != null){
+                savedAdmirer.setIsAdmirer(admirer.getIsAdmirer());
             }
-            if(admirerDetailsDTO.getIs_shark() != null){
-                admirer.setIs_shark(admirerDetailsDTO.getIs_shark());
+            if(admirer.getIs_shark() != null){
+                savedAdmirer.setIs_shark(admirer.getIs_shark());
             }
 
-            AdmirerDetailsDTO returnDto = admirerMapper.admirerToAdmirerDTO(admirerRepository.save(admirer));
+            return admirerRepository.save(savedAdmirer);
 
-            returnDto.setAdmirerUrl(getAdmirerUrl(id));
-
-            return returnDto;
-
-        }).orElseThrow(ResourceNotFoundException::new);
+        }).orElseThrow(() -> new ResourceNotFoundException("Admirer" + id + "not found"));
     }
 
     @Override
     public void deleteAdmirerById(Long id) {
         admirerRepository.deleteById(id);
+    }
+
+    @Override
+    public List<WorkOfArt> getAcquiredWorkOfArtsById(Long id) {
+        Admirer admirer = admirerRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Admirer" + id + "not found"));
+        return (List<WorkOfArt>) admirer.getWork();
+    }
+
+    @Override
+    public List<Exposition> getVisitedExpositionsById(Long id) {
+        Admirer admirer = admirerRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Admirer" + id + "not found"));
+        return (List<Exposition>) admirer.getExpositions();
+    }
+
+    @Override
+    public List<Artist> getFavoriteArtistsById(Long id) {
+        Admirer admirer = admirerRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Admirer" + id + "not found"));
+        return (List<Artist>) admirer.getArtists();
     }
 
 

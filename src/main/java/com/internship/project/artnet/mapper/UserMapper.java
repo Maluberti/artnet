@@ -1,5 +1,6 @@
 package com.internship.project.artnet.mapper;
 
+import com.internship.project.artnet.model.UserCreateDTO;
 import com.internship.project.artnet.model.UsersDTO;
 import com.internship.project.artnet.domain.Users;
 import org.mapstruct.Mapper;
@@ -11,4 +12,5 @@ public interface UserMapper {
 
     UsersDTO userToUserDTO(Users user);
     Users userDTOToUser(UsersDTO userDTO);
+    Users userDTOToUser(UserCreateDTO userDTO);
 }

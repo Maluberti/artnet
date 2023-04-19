@@ -8,8 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UsersDTO {
-    private Long id;
+public class UserCreateDTO {
     private String name;
     private String email;
     private String password;
@@ -19,7 +18,7 @@ public class UsersDTO {
     @JsonProperty("user_url")
     private String userUrl;
 
-    public UsersDTO(String name, String email, String password, Boolean isArtist, Boolean isAdmirer) {
+    public UserCreateDTO(String name, String email, String password, Boolean isArtist, Boolean isAdmirer) {
         this.name = name;
         this.email = email;
         this.password = password;

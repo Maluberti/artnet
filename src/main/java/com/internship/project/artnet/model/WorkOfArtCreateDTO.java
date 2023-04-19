@@ -5,20 +5,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ExpositionDTO {
-    private Long id;
+public class WorkOfArtCreateDTO {
     private String name;
     private String concept;
-    private String inspiration;
-    private LocalDate startDate;
-    private LocalDate endDate;
-    private Long artistId;
+    private Double price;
+    private ClassificationDTO classification;
+    private Long expositionId;
 
-    @JsonProperty("exposition_url")
-    private String expositionUrl;
+    @JsonProperty("work_url")
+    private String workOfArtUrl;
 }

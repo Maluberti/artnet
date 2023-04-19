@@ -1,22 +1,24 @@
 package com.internship.project.artnet.services;
 
-import com.internship.project.artnet.model.AdmirerDTO;
-import com.internship.project.artnet.model.AdmirerDetailsDTO;
-import com.internship.project.artnet.model.ArtistDTO;
-import com.internship.project.artnet.model.ArtistDetailsDTO;
+import com.internship.project.artnet.domain.Artist;
+import com.internship.project.artnet.domain.Exposition;
+import com.internship.project.artnet.model.ExpositionListDTO;
 
+import java.util.Arrays;
 import java.util.List;
 
 public interface ArtistService {
-    List<ArtistDetailsDTO> getAllArtist();
+    List<Artist> getAllArtist();
 
-    ArtistDetailsDTO getArtistById(Long id);
+    Artist getArtistById(Long id);
 
-    ArtistDetailsDTO createNewArtist(ArtistDTO artistDTO);
+    Artist createNewArtist(Artist artist);
 
-    ArtistDetailsDTO saveArtistByDTO(Long id, ArtistDetailsDTO artistDetailsDTO);
+    Artist updateArtistById(Long id, Artist artist);
 
-    ArtistDetailsDTO patchArtist(Long id, ArtistDetailsDTO artistDetailsDTO);
+    Artist patchArtist(Long id, Artist artist);
 
     void deleteArtistById(Long id);
+
+    List<Exposition> getAllExpositionsByArtistId(Long id);
 }

@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class StyleDTO {
+    private Long id;
     private String style;
 
     @JsonProperty("style_url")

@@ -5,15 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class WorkOfArtDetailsDTO extends WorkOfArtDTO{
+public class ClassificationCreateDTO {
+    private String name;
 
-
-    private AdmirerDTO admirer;
-    @JsonProperty("images")
-    private List<WorkOfArt_ImagesDTO> images;
+    @JsonProperty("classification_url")
+    private String classificationUrl;
 }

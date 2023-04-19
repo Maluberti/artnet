@@ -5,15 +5,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class WorkOfArtDetailsDTO extends WorkOfArtDTO{
+public class ArtistCreateDTO extends UserCreateDTO{
+    private Integer phone;
+    private String biographic;
 
-
-    private AdmirerDTO admirer;
-    @JsonProperty("images")
-    private List<WorkOfArt_ImagesDTO> images;
+    @JsonProperty("artist_url")
+    private String artistUrl;
 }

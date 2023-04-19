@@ -8,10 +8,10 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class ExpositionListDTO {
-    List<ExpositionDTO> exposition = null;
+public class ExpositionDetailsListDTO {
+    List<ExpositionDetailsDTO> exposition = null;
 
-    public ExpositionListDTO(List<ExpositionDTO> exposition) {
+    public ExpositionDetailsListDTO(List<ExpositionDetailsDTO> exposition) {
         this.exposition = exposition;
     }
 }

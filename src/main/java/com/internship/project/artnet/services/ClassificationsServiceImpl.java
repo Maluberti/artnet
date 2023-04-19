@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ClassificationsServiceImpl implements ClassificationsService{
+public class ClassificationsServiceImpl implements ClassificationsService {
     @Autowired
     private final ClassificationMapper classificationMapper;
 
@@ -24,59 +24,42 @@ public class ClassificationsServiceImpl implements ClassificationsService{
     }
 
     @Override
-    public List<ClassificationDetailsDTO> getAllClassifications() {
-        List<ClassificationDetailsDTO> classificationDetailsDTOS =
-                classificationsRepository.findAll()
-                        .stream()
-                        .map(classifications -> {
-                            ClassificationDetailsDTO classificationDetailsDTO = classificationMapper.classificationsToClassificationsDTO(classifications);
-                            classificationDetailsDTO.setClassiicationfUrl(getClassificationUrl(classifications.getId()));
-                            return classificationDetailsDTO;
-                        })
-                        .collect(Collectors.toList());
-
-        return classificationDetailsDTOS;
+    public List<Classifications> getAllClassifications() {
+        return classificationsRepository.findAll();
     }
 
     @Override
-    public ClassificationDetailsDTO getClassificationById(Long id) {
+    public Classifications getClassificationById(Long id) {
         return classificationsRepository.findById(id)
-                .map(classificationMapper::classificationsToClassificationsDTO)
-                .map(classificationsDTO -> {
-                    classificationsDTO.setClassiicationfUrl(getClassificationUrl(id));
-                    return classificationsDTO;
-                })
-                .orElseThrow(ResourceNotFoundException::new);
+                .orElseThrow(() -> new ResourceNotFoundException("Classification " + id + " not found!"));
     }
 
     @Override
-    public ClassificationDetailsDTO createNewClassification(ClassificationDTO classificationDTO) {
-        return saveAndReturnDTO(classificationMapper.classificationsDTOToClassifications(classificationDTO));
+    public Classifications createNewClassification(Classifications classification) {
+        return classificationsRepository.save(classification);
     }
 
     @Override
-    public ClassificationDetailsDTO saveClassificationByDTO(Long id, ClassificationDetailsDTO classificationDetailsDTO) {
-        Classifications classifications = classificationMapper.classificationsDTOToClassifications(classificationDetailsDTO);
-        classifications.setId(id);
+    public Classifications updateClassificationById(Long id, Classifications classification) {
+            classificationsRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Classification " + id + " not found!"));
+            classification.setId(id);
 
-        return saveAndReturnDTO(classifications);
+            return classificationsRepository.save(classification);
+
     }
 
     @Override
-    public ClassificationDetailsDTO patchClassification(Long id, ClassificationDetailsDTO classificationDetailsDTO) {
-        return classificationsRepository.findById(id).map(admirer -> {
+    public Classifications patchClassification(Long id, Classifications classification) {
+        return classificationsRepository.findById(id).map(savedClassification -> {
 
-            if(classificationDetailsDTO.getName() != null){
-                admirer.setName(classificationDetailsDTO.getName());
+            if (classification.getName() != null) {
+                savedClassification.setName(classification.getName());
             }
 
-            ClassificationDetailsDTO returnDto = classificationMapper.classificationsToClassificationsDTO(classificationsRepository.save(admirer));
+            return classificationsRepository.save(savedClassification);
 
-            returnDto.setClassiicationfUrl(getClassificationUrl(id));
-
-            return returnDto;
-
-        }).orElseThrow(ResourceNotFoundException::new);
+        }).orElseThrow(() -> new ResourceNotFoundException("Classification " + id + " not found!"));
     }
 
     @Override
@@ -89,13 +72,4 @@ public class ClassificationsServiceImpl implements ClassificationsService{
         return ClassificationController.BASE_URL + "/" + id;
     }
 
-    private ClassificationDetailsDTO saveAndReturnDTO(Classifications classification) {
-        Classifications savedClassification = classificationsRepository.save(classification);
-
-        ClassificationDetailsDTO returnDto = classificationMapper.classificationsToClassificationsDTO(savedClassification);
-
-        returnDto.setClassiicationfUrl(getClassificationUrl(savedClassification.getId()));
-
-        return returnDto;
-    }
 }
