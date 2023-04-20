@@ -9,10 +9,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ArtistDTO extends UsersDTO{
-    private Long id;
     private Integer phone;
     private String biographic;
 
     @JsonProperty("artist_url")
     private String artistUrl;
+
+    public ArtistDTO(Long id, String name, String email, String password, Boolean isArtist, Boolean isAdmirer, Integer phone, String biographic) {
+        super(id, name, email, password, isArtist, isAdmirer);
+        this.phone = phone;
+        this.biographic = biographic;
+    }
 }

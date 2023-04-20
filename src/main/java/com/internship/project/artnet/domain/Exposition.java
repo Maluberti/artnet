@@ -28,4 +28,12 @@ public class Exposition {
     @ManyToMany(mappedBy = "expositions") // as instrucoes da tabela de uniao vao estar atreladas a categories, campo de recipe
     private Set<Admirer> admirers;
 
+    public Exposition( String name, String concept, String inspiration, LocalDate startDate, LocalDate endDate, Artist artist) {
+        this.name = name;
+        this.concept = concept;
+        this.inspiration = inspiration;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.artist = artist;
+    }
 }

@@ -20,4 +20,13 @@ public class ExpositionCreateDTO {
 
     @JsonProperty("exposition_url")
     private String expositionUrl;
+
+    public ExpositionCreateDTO(String name, String concept, String inspiration, LocalDate startDate, LocalDate endDate, Long artistId) {
+        this.name = name;
+        this.concept = concept;
+        this.inspiration = inspiration;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.artistId = artistId;
+    }
 }

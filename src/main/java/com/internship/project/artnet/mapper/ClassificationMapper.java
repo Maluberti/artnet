@@ -7,11 +7,11 @@ import com.internship.project.artnet.model.ClassificationDetailsDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(componentModel = "spring", uses = {WorkOfArtMapper.class})
+@Mapper(componentModel = "spring")
 public interface ClassificationMapper {
     ClassificationMapper INSTANCE = Mappers.getMapper(ClassificationMapper.class);
 
-    ClassificationDetailsDTO classificationsToClassificationsDTO(Classifications classification);
+    ClassificationDTO classificationsToClassificationsDTO(Classifications classification);
     Classifications classificationsDTOToClassifications(ClassificationCreateDTO classificationCreateDTO);
     Classifications classificationsDTOToClassifications(ClassificationDetailsDTO classificationDetailsDTO);
     Classifications classificationsDTOToClassifications(ClassificationDTO classificationDTO);

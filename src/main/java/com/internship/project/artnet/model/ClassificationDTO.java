@@ -15,6 +15,9 @@ public class ClassificationDTO {
     @JsonProperty("classification_url")
     private String classificationUrl;
 
+    public ClassificationDTO( String name) {
+        this.name = name;
+    }
 }
 
 

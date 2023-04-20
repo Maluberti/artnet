@@ -10,8 +10,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class AdmirerMapperTest {
     public static final Long ID = 1L;
     public static final String NAME = "testName";
-    public static final String EMAIL = "testName";
-    public static final String PASSWORD = "testName";
+    public static final String EMAIL = "testEmail";
+    public static final String PASSWORD = "testPassword";
     public static final Boolean IS_ARTIST = true;
     public static final Boolean IS_ADMIRER = false;
     public static final Boolean IS_SHARK = false;
@@ -40,7 +40,7 @@ public class AdmirerMapperTest {
     @Test
     public void admirerDTOToAdmirer()throws Exception{
         //given
-        AdmirerDTO admirerDTO = new AdmirerDTO(NAME, EMAIL,PASSWORD, IS_ARTIST, IS_ADMIRER,ID, IS_SHARK);
+        AdmirerDTO admirerDTO = new AdmirerDTO(ID, NAME, EMAIL,PASSWORD, IS_ARTIST, IS_ADMIRER, IS_SHARK);
 
         //when
         Admirer admirer = admirerMapper.admirerDTOToAdmirer(admirerDTO);

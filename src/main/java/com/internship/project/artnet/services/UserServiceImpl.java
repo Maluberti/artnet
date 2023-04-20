@@ -13,19 +13,15 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
-    private final UserMapper userMapper;
-    @Autowired
     private final UsersRepository userRepository;
 
     public UserServiceImpl(UserMapper userMapper, UsersRepository userRepository) {
-        this.userMapper = userMapper;
         this.userRepository = userRepository;
     }
 
     @Override
     public List<Users> getAllUsers() {
-        List<Users> users = userRepository.findAll();
-        return users;
+        return userRepository.findAll();
     }
 
     @Override
@@ -37,15 +33,14 @@ public class UserServiceImpl implements UserService {
     }
     @Override
     public Users createNewUser(Users user) {
-        Users savedUser = userRepository.save(user);
-        return savedUser;
+        return userRepository.save(user);
 
     }
 
     @Override
     public Users updateUserById(Long id, Users user) {
         userRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("User" + id + "not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("User " + id + " not found!"));
         user.setId(id);
 
         return userRepository.save(user);
@@ -76,7 +71,7 @@ public class UserServiceImpl implements UserService {
 
             return userRepository.save(savedUser);
 
-        }).orElseThrow(() -> new ResourceNotFoundException("User" + id + "not found"));
+        }).orElseThrow(() -> new ResourceNotFoundException("User " + id + " not found!"));
     }
 
 

@@ -19,11 +19,13 @@ public class UsersDTO {
     @JsonProperty("user_url")
     private String userUrl;
 
-    public UsersDTO(String name, String email, String password, Boolean isArtist, Boolean isAdmirer) {
+    public UsersDTO(Long id, String name, String email, String password, Boolean isArtist, Boolean isAdmirer) {
+        this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
         this.isArtist = isArtist;
         this.isAdmirer = isAdmirer;
     }
+
 }

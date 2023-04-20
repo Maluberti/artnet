@@ -9,15 +9,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AdmirerDTO extends UsersDTO{
-    private Long id;
     private Boolean is_shark;
 
     @JsonProperty("admirer_url")
     private String admirerUrl;
 
-    public AdmirerDTO(String name, String email, String password, Boolean isArtist, Boolean isAdmirer, Long id, Boolean is_shark) {
-        super(name, email, password, isArtist, isAdmirer);
-        this.id = id;
+    public AdmirerDTO(Long id, String name, String email, String password, Boolean isArtist, Boolean isAdmirer, Boolean is_shark) {
+        super(id, name, email, password, isArtist, isAdmirer);
         this.is_shark = is_shark;
     }
 }

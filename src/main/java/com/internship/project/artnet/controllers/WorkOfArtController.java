@@ -48,19 +48,19 @@ public class WorkOfArtController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public WorkOfArtDTO createNewWorkOfArt(@RequestBody WorkOfArtDTO workOfArtDTO){
+    public WorkOfArtDTO createNewWorkOfArt(@RequestBody WorkOfArtCreateDTO workOfArtDTO){
         return toDTO(workOfArtService.createNewWorkOfArt(toWorkOfArt(workOfArtDTO)));
     }
 
     @PutMapping({"/{id}"})
     @ResponseStatus(HttpStatus.OK)
-    public WorkOfArtDTO updateWorkOfArt(@PathVariable Long id, @RequestBody WorkOfArtDTO workOfArtDTO){
+    public WorkOfArtDTO updateWorkOfArt(@PathVariable Long id, @RequestBody WorkOfArtCreateDTO workOfArtDTO){
         return toDTO(workOfArtService.updateWorkOfArtById(id, toWorkOfArt(workOfArtDTO)));
     }
 
     @PatchMapping({"/{id}"})
     @ResponseStatus(HttpStatus.OK)
-    public WorkOfArtDTO patchWorkOfArt(@PathVariable Long id, @RequestBody WorkOfArtDTO workOfArtDTO){
+    public WorkOfArtDTO patchWorkOfArt(@PathVariable Long id, @RequestBody WorkOfArtCreateDTO workOfArtDTO){
         return toDTO(workOfArtService.patchWorkOfArt(id, toWorkOfArt(workOfArtDTO)));
     }
 
@@ -97,4 +97,5 @@ public class WorkOfArtController {
     }
 
     private WorkOfArt toWorkOfArt(WorkOfArtDTO workOfArtDTO){return workOfArtMapper.workOfArtDTOToWorkOfArt(workOfArtDTO);}
+    private WorkOfArt toWorkOfArt(WorkOfArtCreateDTO workOfArtDTO){return workOfArtMapper.workOfArtDTOToWorkOfArt(workOfArtDTO);}
 }

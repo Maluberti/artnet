@@ -17,4 +17,12 @@ public class WorkOfArtCreateDTO {
 
     @JsonProperty("work_url")
     private String workOfArtUrl;
+
+    public WorkOfArtCreateDTO(String name, String concept, Double price, ClassificationDTO classification, Long expositionId) {
+        this.name = name;
+        this.concept = concept;
+        this.price = price;
+        this.classification = classification;
+        this.expositionId = expositionId;
+    }
 }

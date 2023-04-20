@@ -14,4 +14,8 @@ public class StyleDTO {
 
     @JsonProperty("style_url")
     private String styleUrl;
+
+    public StyleDTO(String style) {
+        this.style = style;
+    }
 }
