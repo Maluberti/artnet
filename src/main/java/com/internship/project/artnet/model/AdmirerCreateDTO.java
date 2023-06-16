@@ -15,7 +15,7 @@ public class AdmirerCreateDTO extends UserCreateDTO {
     private String admirerUrl;
 
     public AdmirerCreateDTO(String name, String email, String password, Boolean isArtist, Boolean isAdmirer, Boolean is_shark) {
-        super(name, email, password, isArtist, isAdmirer);
+        super(name, email, password);
         this.is_shark = is_shark;
     }
 }

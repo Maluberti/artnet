@@ -45,7 +45,9 @@ public class WorkOfArtMapperTest {
     public void shouldMapWorkOfArtToWorkOfArtDTO()throws Exception{
         //given
         CLASSIFICATION.setId(ID);
-        WorkOfArt workOfArt = new WorkOfArt(NAME,CONCEPT,PRICE,CLASSIFICATION,EXPOSITION);
+        WorkOfArt workOfArt = new WorkOfArt(NAME,CONCEPT,PRICE);
+        workOfArt.setClassification(CLASSIFICATION);
+        workOfArt.setExposition(EXPOSITION);
         workOfArt.setId(ID);
 
         //when

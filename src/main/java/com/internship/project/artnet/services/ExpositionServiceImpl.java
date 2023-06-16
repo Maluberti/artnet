@@ -5,9 +5,10 @@ import com.internship.project.artnet.domain.WorkOfArt;
 import com.internship.project.artnet.mapper.ExpositionMapper;
 import com.internship.project.artnet.repositories.ExpositionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class ExpositionServiceImpl implements ExpositionService {
 
     @Autowired

@@ -4,7 +4,9 @@ import com.internship.project.artnet.domain.Classifications;
 import com.internship.project.artnet.domain.WorkOfArt;
 import com.internship.project.artnet.domain.WorkOfArt_Images;
 import com.internship.project.artnet.model.WorkOfArt_ImagesDTO;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface WorkOfArtService {
@@ -12,7 +14,9 @@ public interface WorkOfArtService {
 
     WorkOfArt getWorkOfArtById(Long id);
 
-    WorkOfArt createNewWorkOfArt(WorkOfArt work);
+    WorkOfArt createNewWorkOfArtWithoutImages(WorkOfArt work);
+
+    WorkOfArt createWorkOfArt(Long workId, List<MultipartFile> images) throws IOException;
 
     WorkOfArt updateWorkOfArtById(Long id, WorkOfArt work);
 

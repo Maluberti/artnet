@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -19,7 +21,7 @@ public class Style {
     private String style;
 
     @ManyToMany(mappedBy = "styles")
-    private Set<Artist> artists;
+    private List<Artist> artists = new ArrayList<>();
 
     public Style(String style) {
         this.style = style;

@@ -16,7 +16,7 @@ public class ArtistCreateDTO extends UserCreateDTO{
     private String artistUrl;
 
     public ArtistCreateDTO(String name, String email, String password, Boolean isArtist, Boolean isAdmirer, Integer phone, String biographic) {
-        super(name, email, password, isArtist, isAdmirer);
+        super(name, email, password);
         this.phone = phone;
         this.biographic = biographic;
     }

@@ -4,9 +4,6 @@ import com.internship.project.artnet.domain.Users;
 import com.internship.project.artnet.model.UserCreateDTO;
 import com.internship.project.artnet.model.UsersDTO;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -62,7 +59,7 @@ public class UserMapperTest {
     @Test
     public void userCreateDTOtoUser() throws Exception {
         //given
-        UserCreateDTO userDTO = new UserCreateDTO( NAME, EMAIL,PASSWORD,IS_ARTIST,IS_ADMIRER);
+        UserCreateDTO userDTO = new UserCreateDTO( NAME, EMAIL,PASSWORD);
 
         //when
         Users user = userMapper.userDTOToUser(userDTO);

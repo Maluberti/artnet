@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class WorkOfArt_ImagesDTO {
     private Long id;
-    private Byte[] image;
+    private String imageKey;
     @JsonProperty("workImages_url")
     private String workOfArtImagesUrl;
 }

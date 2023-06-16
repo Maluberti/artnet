@@ -18,11 +18,9 @@ public class UserCreateDTO {
     @JsonProperty("user_url")
     private String userUrl;
 
-    public UserCreateDTO(String name, String email, String password, Boolean isArtist, Boolean isAdmirer) {
+    public UserCreateDTO(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.isArtist = isArtist;
-        this.isAdmirer = isAdmirer;
     }
 }

@@ -6,10 +6,11 @@ import com.internship.project.artnet.mapper.StyleMapper;
 import com.internship.project.artnet.model.StyleDTO;
 import com.internship.project.artnet.repositories.StyleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Service
 public class StyleServiceImpl implements StyleService{
 
     @Autowired

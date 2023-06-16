@@ -1,13 +1,19 @@
 package com.internship.project.artnet.domain;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
 public class Exposition {
     @Id
@@ -20,13 +26,13 @@ public class Exposition {
     private LocalDate endDate;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "exposition") //mappedby define quem eh a tabela pai -- nesse caso recipe eh a tabela pai e na relacao manytoone quem recebe a chave estrangeira eh ingredients que eh a tabela filho
-    private Set<WorkOfArt> work = new HashSet<>();
+    private List<WorkOfArt> work = new ArrayList<>();
 
     @ManyToOne
     private Artist artist;
 
     @ManyToMany(mappedBy = "expositions") // as instrucoes da tabela de uniao vao estar atreladas a categories, campo de recipe
-    private Set<Admirer> admirers;
+    private List<Admirer> admirers = new ArrayList<>();
 
     public Exposition( String name, String concept, String inspiration, LocalDate startDate, LocalDate endDate, Artist artist) {
         this.name = name;
@@ -35,5 +41,13 @@ public class Exposition {
         this.startDate = startDate;
         this.endDate = endDate;
         this.artist = artist;
+    }
+
+    public Exposition(String name, String concept, String inspiration, LocalDate startDate, LocalDate endDate) {
+        this.name = name;
+        this.concept = concept;
+        this.inspiration = inspiration;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 }

@@ -7,6 +7,8 @@ import com.internship.project.artnet.model.UserListDTO;
 import com.internship.project.artnet.model.UsersDTO;
 import com.internship.project.artnet.services.AdmirerService;
 import com.internship.project.artnet.services.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +16,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(UserController.BASE_URL)
+@Api(value = "User")
 public class UserController {
     public static final String BASE_URL = "/users";
 
@@ -27,6 +30,7 @@ public class UserController {
         this.userMapper = userMapper;
     }
 
+    @ApiOperation(value = "Return a list of Users")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public UserListDTO getListOfUsers(){
@@ -37,6 +41,7 @@ public class UserController {
 
     }
 
+    @ApiOperation(value = "Return a User by its id")
     @GetMapping({"/{id}"})
     @ResponseStatus(HttpStatus.OK)
     public UsersDTO getUserById(@PathVariable Long id){
@@ -44,6 +49,7 @@ public class UserController {
     }
 
 
+    @ApiOperation(value = "Create new User")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public UsersDTO createNewUser(@RequestBody UserCreateDTO userDTO){
@@ -51,6 +57,7 @@ public class UserController {
         return toDTO(userService.createNewUser(toUsers(userDTO)));
     }
 
+    @ApiOperation(value = "Update User")
     @PutMapping({"/{id}"})
     @ResponseStatus(HttpStatus.OK)
     public UsersDTO updateUser(@PathVariable Long id, @RequestBody UserCreateDTO userDTO){
@@ -58,6 +65,7 @@ public class UserController {
         return toDTO(userService.updateUserById(id, user));
     }
 
+    @ApiOperation(value = "Patch User")
     @PatchMapping({"/{id}"})
     @ResponseStatus(HttpStatus.OK)
     public UsersDTO patchUser(@PathVariable Long id, @RequestBody UserCreateDTO userDTO){
@@ -65,6 +73,7 @@ public class UserController {
         return toDTO(userService.patchUser(id, toUsers(userDTO)));
     }
 
+    @ApiOperation(value = "Delete User")
     @DeleteMapping({"/{id}"})
     @ResponseStatus(HttpStatus.OK)
     public void deleteUser(@PathVariable Long id){

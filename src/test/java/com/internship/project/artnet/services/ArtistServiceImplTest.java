@@ -4,6 +4,7 @@ import com.internship.project.artnet.domain.Artist;
 import com.internship.project.artnet.domain.Exposition;
 import com.internship.project.artnet.repositories.ArtistRepository;
 import org.junit.*;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -142,6 +143,56 @@ public class ArtistServiceImplTest {
         Mockito.verify(artistRepository, Mockito.times(1)).findById(1L);
         Mockito.verify(artistRepository, Mockito.times(1)).save(Mockito.any(Artist.class));
         Mockito.verifyNoMoreInteractions(artistRepository);
+    }
+
+    @Test
+    public void testPatchArtistWithInvalidId() {
+        Long invalidId = 100L;
+        Artist artist = new Artist("John Doe", "johndoe@example.com", "password", true, false, 123456, "Biography");
+
+        Mockito.when(artistRepository.findById(invalidId)).thenReturn(Optional.empty());
+
+        assertThrows(ResourceNotFoundException.class, () -> {
+            artistService.patchArtist(invalidId, artist);
+        });
+
+        Mockito.verify(artistRepository, Mockito.times(1)).findById(invalidId);
+        Mockito.verify(artistRepository, Mockito.never()).save(Mockito.any());
+    }
+
+    @Test
+    public void testDeleteArtistById() {
+        Long artistId = 1L;
+        doNothing().when(artistRepository).deleteById(artistId);
+        artistService.deleteArtistById(artistId);
+        verify(artistRepository, times(1)).deleteById(artistId);
+
+    }
+
+    @Test
+    public void testGetAllExpositionsByArtistId() {
+        // Arrange
+        Long artistId = 1L;
+        Artist artist = new Artist("John", "john@example.com", "password", true, false, 12345678, "Biography");
+        artist.setId(artistId);
+        List<Exposition> expositions = new ArrayList<>();
+        Exposition exposition1 = new Exposition("Name1", "testConcep1","testInsp", LocalDate.now(), LocalDate.now().plusDays(7), artist);
+        exposition1.setId(1L);
+        Exposition exposition2 = new Exposition("Name2", "testConcep2","testInsp",LocalDate.now().plusDays(10), LocalDate.now().plusDays(17), artist);
+        exposition2.setId(2L);
+        expositions.add(exposition1);
+        expositions.add(exposition2);
+        artist.setExpositions(expositions);
+        Mockito.when(artistRepository.findById(artistId)).thenReturn(Optional.of(artist));
+
+        // Act
+        List<Exposition> result = artistService.getAllExpositionsByArtistId(artistId);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(2, result.size());
+        assertTrue(result.contains(exposition1));
+        assertTrue(result.contains(exposition2));
     }
 
 

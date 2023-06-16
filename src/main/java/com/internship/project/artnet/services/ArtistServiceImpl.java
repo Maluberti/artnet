@@ -37,6 +37,7 @@ public class ArtistServiceImpl implements ArtistService{
 
     @Override
     public Artist createNewArtist(Artist artist) {
+        artist.setIsArtist(true);
         return artistRepository.save(artist);
     }
 

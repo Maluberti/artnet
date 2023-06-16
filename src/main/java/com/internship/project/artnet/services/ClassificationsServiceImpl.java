@@ -7,10 +7,11 @@ import com.internship.project.artnet.model.ClassificationDTO;
 import com.internship.project.artnet.model.ClassificationDetailsDTO;
 import com.internship.project.artnet.repositories.ClassificationsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Service
 public class ClassificationsServiceImpl implements ClassificationsService {
     @Autowired
     private final ClassificationMapper classificationMapper;

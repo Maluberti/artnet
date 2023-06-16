@@ -4,6 +4,8 @@ import com.internship.project.artnet.domain.Style;
 import com.internship.project.artnet.mapper.StyleMapper;
 import com.internship.project.artnet.model.*;
 import com.internship.project.artnet.services.StyleService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,6 +13,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(StyleController.BASE_URL)
+@Api(value = "Style")
 public class StyleController {
     public static final String BASE_URL = "/styles";
     private final StyleService styleService;
@@ -21,7 +24,7 @@ public class StyleController {
         this.styleMapper = styleMapper;
     }
 
-
+    @ApiOperation(value = "Return a list of Styles")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public StyleListDTO getListOfStyles()
@@ -32,31 +35,35 @@ public class StyleController {
                 .collect(Collectors.toList()));
     }
 
+    @ApiOperation(value = "Return a Style by its id")
     @GetMapping({"/{id}"})
     @ResponseStatus(HttpStatus.OK)
     public StyleDTO getStyleById(@PathVariable Long id){
         return toDTO(styleService.getStyleById(id));
     }
 
-
+    @ApiOperation(value = "Create new Style")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public StyleDTO createNewStyle(@RequestBody StyleCreateDTO styleDTO){
         return toDTO(styleService.createNewStyle(toStyle(styleDTO)));
     }
 
+    @ApiOperation(value = "Update a Style")
     @PutMapping({"/{id}"})
     @ResponseStatus(HttpStatus.OK)
     public StyleDTO updateStyle(@PathVariable Long id, @RequestBody StyleCreateDTO styleDTO){
         return toDTO(styleService.updateStyleById(id, toStyle(styleDTO)));
     }
 
+    @ApiOperation(value = "Patch a Style")
     @PatchMapping({"/{id}"})
     @ResponseStatus(HttpStatus.OK)
     public StyleDTO patchStyle(@PathVariable Long id, @RequestBody StyleCreateDTO styleDTO){
         return toDTO(styleService.patchStyle(id, toStyle(styleDTO)));
     }
 
+    @ApiOperation(value = "Delete a Style")
     @DeleteMapping({"/{id}"})
     @ResponseStatus(HttpStatus.OK)
     public void deleteStyle(@PathVariable Long id){

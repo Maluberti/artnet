@@ -7,6 +7,8 @@ import com.internship.project.artnet.mapper.ExpositionMapper;
 import com.internship.project.artnet.mapper.WorkOfArtMapper;
 import com.internship.project.artnet.model.*;
 import com.internship.project.artnet.services.AdmirerService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +16,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(AdmirerController.BASE_URL)
+@Api(value = "Admirer")
 public class AdmirerController {
     public static final String BASE_URL = "/users/admirers";
     private final AdmirerService admirerService;
@@ -29,7 +32,7 @@ public class AdmirerController {
         this.workOfArtMapper = workOfArtMapper;
         this.artistMapper = artistMapper;
     }
-
+    @ApiOperation(value = "Return a list of Admirers")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public AdmirerListDTO getListOfAdmirers()
@@ -40,12 +43,14 @@ public class AdmirerController {
                 .collect(Collectors.toList()));
     }
 
+    @ApiOperation(value = "Return a Admirer by its id")
     @GetMapping({"/{id}"})
     @ResponseStatus(HttpStatus.OK)
     public AdmirerDTO getAdmirerById(@PathVariable Long id){
         return toDTO(admirerService.getAdmirerById(id));
     }
 
+    @ApiOperation(value = "Return a list of WorkOfArts Acquired by Admirer id")
     @GetMapping({"/{id}/workOfArts"})
     @ResponseStatus(HttpStatus.OK)
     public WorkOfArtListDTO getAcquiredWorkOfArtsById(@PathVariable Long id){
@@ -59,6 +64,7 @@ public class AdmirerController {
                 .collect(Collectors.toList()));
     }
 
+    @ApiOperation(value = "Return a list of Exposition visited by Admirer id")
     @GetMapping({"/{id}/expositions"})
     @ResponseStatus(HttpStatus.OK)
     public ExpositionListDTO getVisitedExpositionsById(@PathVariable Long id){
@@ -72,6 +78,7 @@ public class AdmirerController {
                 .collect(Collectors.toList()));
     }
 
+    @ApiOperation(value = "Return a list of Artists favorited by Admirer id")
     @GetMapping({"/{id}/artists"})
     @ResponseStatus(HttpStatus.OK)
     public ArtistListDTO getFavoriteArtistsById(@PathVariable Long id){
@@ -86,24 +93,28 @@ public class AdmirerController {
     }
 
 
+    @ApiOperation(value = "Create new Admirer")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public AdmirerDTO createNewAdmirer(@RequestBody AdmirerCreateDTO admirerDTO){
         return toDTO(admirerService.createNewAdmirer(toAdmirer(admirerDTO)));
     }
 
+    @ApiOperation(value = "Update Admirer ")
     @PutMapping({"/{id}"})
     @ResponseStatus(HttpStatus.OK)
     public AdmirerDTO updateAdmirer(@PathVariable Long id, @RequestBody AdmirerCreateDTO admirerDTO){
         return toDTO(admirerService.updateAdmirerById(id, toAdmirer(admirerDTO)));
     }
 
+    @ApiOperation(value = "Patch Admirer ")
     @PatchMapping({"/{id}"})
     @ResponseStatus(HttpStatus.OK)
     public AdmirerDTO patchAdmirer(@PathVariable Long id, @RequestBody AdmirerCreateDTO admirerDTO){
         return toDTO(admirerService.patchAdmirer(id, toAdmirer(admirerDTO)));
     }
 
+    @ApiOperation(value = "Delete  Admirer")
     @DeleteMapping({"/{id}"})
     @ResponseStatus(HttpStatus.OK)
     public void deleteAdmirer(@PathVariable Long id){

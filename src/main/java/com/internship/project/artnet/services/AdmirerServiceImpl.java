@@ -35,18 +35,19 @@ public class AdmirerServiceImpl implements AdmirerService{
     @Override
     public Admirer getAdmirerById(Long id) {
         return admirerRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("User " + id + " not found!"));
+                .orElseThrow(() -> new ResourceNotFoundException("Admirer " + id + " not found!"));
     }
 
     @Override
     public Admirer createNewAdmirer(Admirer admirer) {
+        admirer.setIsAdmirer(true);
         return admirerRepository.save(admirer);
     }
 
     @Override
     public Admirer updateAdmirerById(Long id, Admirer admirer) {
         admirerRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Admirer" + id + "not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Admirer " + id + " not found!"));
         admirer.setId(id);
 
         return admirerRepository.save(admirer);
@@ -80,7 +81,7 @@ public class AdmirerServiceImpl implements AdmirerService{
 
             return admirerRepository.save(savedAdmirer);
 
-        }).orElseThrow(() -> new ResourceNotFoundException("Admirer" + id + "not found"));
+        }).orElseThrow(() -> new ResourceNotFoundException("Admirer " + id + " not found!"));
     }
 
     @Override
@@ -91,37 +92,25 @@ public class AdmirerServiceImpl implements AdmirerService{
     @Override
     public List<WorkOfArt> getAcquiredWorkOfArtsById(Long id) {
         Admirer admirer = admirerRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Admirer" + id + "not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Admirer " + id + "not found!"));
         return (List<WorkOfArt>) admirer.getWork();
     }
 
     @Override
     public List<Exposition> getVisitedExpositionsById(Long id) {
         Admirer admirer = admirerRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Admirer" + id + "not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Admirer " + id + "not found!"));
         return (List<Exposition>) admirer.getExpositions();
     }
 
     @Override
     public List<Artist> getFavoriteArtistsById(Long id) {
         Admirer admirer = admirerRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Admirer" + id + "not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Admirer " + id + "not found!"));
         return (List<Artist>) admirer.getArtists();
     }
 
 
-    // aux methods
-    private String getAdmirerUrl(Long id) {
-        return AdmirerController.BASE_URL + "/" + id;
-    }
 
-    private AdmirerDetailsDTO saveAndReturnDTO(Admirer admirer) {
-        Admirer savedAdmirer = admirerRepository.save(admirer);
 
-        AdmirerDetailsDTO returnDto = admirerMapper.admirerToAdmirerDTO(savedAdmirer);
-
-        returnDto.setAdmirerUrl(getAdmirerUrl(savedAdmirer.getId()));
-
-        return returnDto;
-    }
 }
