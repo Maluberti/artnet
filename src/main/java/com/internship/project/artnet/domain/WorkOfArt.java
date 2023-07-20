@@ -20,6 +20,9 @@ public class WorkOfArt {
     private String concept;
     private Double price;
 
+    @OneToMany( mappedBy = "work")
+    private List<WorkOfArt_Images> images = new ArrayList<>();
+
 
     @ManyToOne
     private Classifications classification;
@@ -28,8 +31,7 @@ public class WorkOfArt {
     @ManyToOne
     @JoinColumn(name = "exposition_id")
     private Exposition exposition;
-    @OneToMany( mappedBy = "work") //mappedby define quem eh a tabela pai -- nesse caso recipe eh a tabela pai e na relacao manytoone quem recebe a chave estrangeira eh ingredients que eh a tabela filho
-    private List<WorkOfArt_Images> images = new ArrayList<>();
+
 
     public WorkOfArt(String name, String concept, Double price) {
         this.name = name;

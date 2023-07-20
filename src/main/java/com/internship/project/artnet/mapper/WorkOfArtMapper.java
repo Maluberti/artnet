@@ -9,19 +9,24 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(componentModel = "spring", uses = {WorkOfArt_ImagesMapper.class, ClassificationMapper.class})
+import java.util.Base64;
+
+@Mapper(componentModel = "spring", uses = {ClassificationMapper.class})
 public interface WorkOfArtMapper {
     WorkOfArtMapper INSTANCE = Mappers.getMapper(WorkOfArtMapper.class);
 
-    @Mapping(target = "classification", source = "classification")
+
     @Mapping(target = "expositionId", source = "exposition.id")
     WorkOfArtDTO workOfArtToWorkOfArtDTO(WorkOfArt workOfArt);
 
+    @Mapping(target = "classification.id", source = "classificationId")
     @Mapping(target = "exposition.id", source = "expositionId")
     WorkOfArt workOfArtDTOToWorkOfArt(WorkOfArtCreateDTO workOfArtCreateDTO);
 
     @Mapping(target = "exposition.id", source = "expositionId")
     WorkOfArt workOfArtDTOToWorkOfArt(WorkOfArtDTO WorkOfArtDTO);
+
+
 
 
 }

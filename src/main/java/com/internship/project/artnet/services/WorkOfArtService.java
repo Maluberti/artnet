@@ -16,8 +16,6 @@ public interface WorkOfArtService {
 
     WorkOfArt createNewWorkOfArtWithoutImages(WorkOfArt work);
 
-    WorkOfArt createWorkOfArt(Long workId, List<MultipartFile> images) throws IOException;
-
     WorkOfArt updateWorkOfArtById(Long id, WorkOfArt work);
 
     WorkOfArt patchWorkOfArt(Long id, WorkOfArt work);

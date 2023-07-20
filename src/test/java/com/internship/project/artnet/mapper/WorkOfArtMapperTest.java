@@ -102,13 +102,7 @@ public class WorkOfArtMapperTest {
     public void shouldMapWorkOfArtCreateDTOToWorkOfArt()throws Exception{
         //given
         CLASSIFICATION_DTO.setId(ID);
-        WorkOfArtCreateDTO workOfArtDTO = new WorkOfArtCreateDTO(NAME,CONCEPT,PRICE,CLASSIFICATION_DTO,EXPOSITION.getId());
-
-        //when
-        Classifications classification = new Classifications();
-        classification.setId(ID);
-        classification.setName(NAME);
-        Mockito.when(classificationMapper.classificationsDTOToClassifications(CLASSIFICATION_DTO)).thenReturn(classification);
+        WorkOfArtCreateDTO workOfArtDTO = new WorkOfArtCreateDTO(NAME,CONCEPT,PRICE,CLASSIFICATION_DTO.getId(),EXPOSITION.getId());
 
         //when
         WorkOfArt workOfArt = workOfArtMapper.workOfArtDTOToWorkOfArt(workOfArtDTO);
@@ -117,7 +111,7 @@ public class WorkOfArtMapperTest {
         assertEquals(workOfArtDTO.getName(), workOfArt.getName());
         assertEquals(workOfArtDTO.getConcept(), workOfArt.getConcept());
         assertEquals(workOfArtDTO.getPrice(), workOfArt.getPrice());
-        assertEquals(classification, workOfArt.getClassification());
+        assertEquals(workOfArtDTO.getClassificationId(), workOfArt.getClassification().getId());
         assertEquals(workOfArtDTO.getExpositionId(), workOfArt.getExposition().getId());
 
         Mockito.verify(classificationMapper).classificationsDTOToClassifications(CLASSIFICATION_DTO);

@@ -74,13 +74,6 @@ public class WorkOfArtController {
         return toDTO(workOfArtService.createNewWorkOfArtWithoutImages(toWorkOfArt(workOfArtDTO)));
     }
 
-    @ApiOperation(value = "Upload images of an work of art")
-    @PostMapping({"/{id}"})
-    @ResponseStatus(HttpStatus.CREATED)
-    public WorkOfArtDTO createNewWorkOfArtImages(@PathVariable Long id, @RequestParam("images") List<MultipartFile> images ) throws IOException {
-        return toDTO(workOfArtService.createWorkOfArt(id, images));
-    }
-
     @ApiOperation(value = "Update WorkOfArt")
     @PutMapping({"/{id}"})
     @ResponseStatus(HttpStatus.OK)

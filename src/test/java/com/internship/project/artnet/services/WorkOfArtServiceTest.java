@@ -57,7 +57,7 @@ public class WorkOfArtServiceTest {
         when(amazonS3.putObject(any(PutObjectRequest.class))).thenReturn(null);
 
         // When
-        WorkOfArt result = workOfArtService.createWorkOfArt(workOfArt, images);
+        WorkOfArt result = workOfArtService.createWorkOfArt(workOfArt.getId(), images);
         // Then
         assertNotNull(result);
         assertEquals("Test1", result.getName());

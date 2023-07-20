@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.*;
 
 @Data
 @NoArgsConstructor
@@ -12,6 +15,7 @@ public class WorkOfArtCreateDTO {
     private String name;
     private String concept;
     private Double price;
+    private List<MultipartFile> images;
     private Long classificationId;
     private Long expositionId;
 
