@@ -16,8 +16,7 @@ public class WorkOfArt_Images {
 
     private String roteS3;
 
-    @ManyToOne
-    private WorkOfArt work;
+
 
 }
 

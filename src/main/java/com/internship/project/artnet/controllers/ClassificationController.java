@@ -4,8 +4,9 @@ import com.internship.project.artnet.domain.Classifications;
 import com.internship.project.artnet.mapper.ClassificationMapper;
 import com.internship.project.artnet.model.*;
 import com.internship.project.artnet.services.ClassificationsService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +16,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(ClassificationController.BASE_URL)
-@Api(value = "Classification")
+@Tag(name = "Classification")
 public class ClassificationController {
     public static final String BASE_URL = "/classifications";
     private final ClassificationsService classificationsService;
@@ -26,7 +27,7 @@ public class ClassificationController {
         this.classificationMapper = classificationMapper;
     }
 
-    @ApiOperation(value = "Return a list of Classifications")
+    @Operation(summary = "Return a list of Classifications")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public ClassificationListDTO getListOfClassifications()
@@ -37,35 +38,35 @@ public class ClassificationController {
                 .collect(Collectors.toList()));
     }
 
-    @ApiOperation(value = "Return an Classification by its id")
+    @Operation(summary = "Return an Classification by its id")
     @GetMapping({"/{id}"})
     @ResponseStatus(HttpStatus.OK)
     public ClassificationDTO getClassificationById(@PathVariable Long id){
         return toDTO(classificationsService.getClassificationById(id));
     }
 
-    @ApiOperation(value = "Create new Classification")
+    @Operation(summary = "Create new Classification")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ClassificationDTO createNewClassification(@RequestBody ClassificationCreateDTO classificationDTO){
         return toDTO(classificationsService.createNewClassification(toClassification(classificationDTO)));
     }
 
-    @ApiOperation(value = "Update an Classification")
+    @Operation(summary = "Update an Classification")
     @PutMapping({"/{id}"})
     @ResponseStatus(HttpStatus.OK)
     public ClassificationDTO updateClassification(@PathVariable Long id, @RequestBody ClassificationCreateDTO classificationDTO){
         return toDTO(classificationsService.updateClassificationById(id, toClassification(classificationDTO)));
     }
 
-    @ApiOperation(value = "Patch an Classification")
+    @Operation(summary = "Patch an Classification")
     @PatchMapping({"/{id}"})
     @ResponseStatus(HttpStatus.OK)
     public ClassificationDTO patchClassification(@PathVariable Long id, @RequestBody ClassificationCreateDTO classificationDTO){
         return toDTO(classificationsService.patchClassification(id, toClassification(classificationDTO)));
     }
 
-    @ApiOperation(value = "Delete an Classification")
+    @Operation(summary = "Delete an Classification")
     @DeleteMapping({"/{id}"})
     @ResponseStatus(HttpStatus.OK)
     public void deleteClassifications(@PathVariable Long id){

@@ -20,8 +20,6 @@ public class WorkOfArt {
     private String concept;
     private Double price;
 
-    @OneToMany( mappedBy = "work")
-    private List<WorkOfArt_Images> images = new ArrayList<>();
 
 
     @ManyToOne

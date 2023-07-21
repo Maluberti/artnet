@@ -2,7 +2,6 @@ package com.internship.project.artnet.services;
 
 import com.internship.project.artnet.domain.Classifications;
 import com.internship.project.artnet.domain.WorkOfArt;
-import com.internship.project.artnet.domain.WorkOfArt_Images;
 import com.internship.project.artnet.repositories.WorkOfArtRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,13 +78,6 @@ public class WorkOfArtServiceImpl implements WorkOfArtService{
 
     }
 
-    @Override
-    public List<WorkOfArt_Images> getImagesByWorkOfArtId(Long workId) {
-        WorkOfArt workOfArt = workOfArtRepository.findById(workId)
-                .orElseThrow(() -> new EntityNotFoundException("Work of art" + workId + "not found"));
-
-        return workOfArt.getImages();
-    }
 
 
 }

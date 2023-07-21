@@ -5,8 +5,9 @@ import com.internship.project.artnet.mapper.ExpositionMapper;
 import com.internship.project.artnet.mapper.WorkOfArtMapper;
 import com.internship.project.artnet.model.*;
 import com.internship.project.artnet.services.ExpositionService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +15,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(ExpositionController.BASE_URL)
-@Api(value = "Exposition")
+@Tag(name = "Exposition")
 public class ExpositionController {
     public static final String BASE_URL = "/expositions";
     private final ExpositionService expositionService;
@@ -27,7 +28,7 @@ public class ExpositionController {
         this.workOfArtMapper = workOfArtMapper;
     }
 
-    @ApiOperation(value = "Return a list of Exposition")
+    @Operation(summary = "Return a list of Exposition")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public ExpositionDetailsListDTO getListOfExpositions(){
@@ -37,14 +38,14 @@ public class ExpositionController {
                 .collect(Collectors.toList()));
     }
 
-    @ApiOperation(value = "Return a Exposition by its id")
+    @Operation(summary = "Return a Exposition by its id")
     @GetMapping({"/{id}"})
     @ResponseStatus(HttpStatus.OK)
     public ExpositionDetailsDTO getExpositionById(@PathVariable Long id){
         return toDetailsDTO(expositionService.getExpositionById(id));
     }
 
-    @ApiOperation(value = "Return a list of workOfArts in a Exposition by its id")
+    @Operation(summary = "Return a list of workOfArts in a Exposition by its id")
     @GetMapping({"/{id}/workOfArts"})
     @ResponseStatus(HttpStatus.OK)
     public WorkOfArtListDTO getWorkOfArtsByExpositionId(@PathVariable Long id){
@@ -58,28 +59,28 @@ public class ExpositionController {
                 .collect(Collectors.toList()));
     }
 
-    @ApiOperation(value = "Create a new Exposition")
+    @Operation(summary = "Create a new Exposition")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ExpositionDTO createNewExposition(@RequestBody ExpositionCreateDTO expositionDTO){
         return toDTO(expositionService.createNewExposition(toExposition(expositionDTO)));
     }
 
-    @ApiOperation(value = "Update a Exposition")
+    @Operation(summary = "Update a Exposition")
     @PutMapping({"/{id}"})
     @ResponseStatus(HttpStatus.OK)
     public ExpositionDTO updateExposition(@PathVariable Long id, @RequestBody ExpositionCreateDTO expositionDTO){
         return toDTO(expositionService.updateExpositionById(id, toExposition(expositionDTO)));
     }
 
-    @ApiOperation(value = "Patch a Exposition")
+    @Operation(summary = "Patch a Exposition")
     @PatchMapping({"/{id}"})
     @ResponseStatus(HttpStatus.OK)
     public ExpositionDTO patchExposition(@PathVariable Long id, @RequestBody ExpositionCreateDTO expositionDTO){
         return toDTO(expositionService.patchExposition(id, toExposition(expositionDTO)));
     }
 
-    @ApiOperation(value = "Delete a Exposition")
+    @Operation(summary = "Delete a Exposition")
     @DeleteMapping({"/{id}"})
     @ResponseStatus(HttpStatus.OK)
     public void deleteExposition(@PathVariable Long id){
