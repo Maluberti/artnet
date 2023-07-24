@@ -3,7 +3,6 @@ package com.internship.project.artnet.controllers;
 import com.internship.project.artnet.domain.WorkOfArt;
 import com.internship.project.artnet.mapper.ClassificationMapper;
 import com.internship.project.artnet.mapper.WorkOfArtMapper;
-import com.internship.project.artnet.mapper.WorkOfArt_ImagesMapper;
 import com.internship.project.artnet.model.*;
 import com.internship.project.artnet.services.WorkOfArtService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -22,13 +21,11 @@ public class WorkOfArtController {
     private final WorkOfArtService workOfArtService;
     private final ClassificationMapper classificationMapper;
     private final WorkOfArtMapper workOfArtMapper;
-    private final WorkOfArt_ImagesMapper workOfArtImagesMapper;
 
-    public WorkOfArtController(WorkOfArtService workOfArtService, ClassificationMapper classificationMapper, WorkOfArtMapper workOfArtMapper, WorkOfArt_ImagesMapper workOfArtImagesMapper) {
+    public WorkOfArtController(WorkOfArtService workOfArtService, ClassificationMapper classificationMapper, WorkOfArtMapper workOfArtMapper) {
         this.workOfArtService = workOfArtService;
         this.classificationMapper = classificationMapper;
         this.workOfArtMapper = workOfArtMapper;
-        this.workOfArtImagesMapper = workOfArtImagesMapper;
     }
     @Operation(summary = "Return a list of WorkOfArt")
     @GetMapping
