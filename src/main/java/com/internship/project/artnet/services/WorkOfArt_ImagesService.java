@@ -6,9 +6,11 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 public interface WorkOfArt_ImagesService {
-    WorkOfArt_Images saveImages (String title, String description, MultipartFile file);
+    List<WorkOfArt_Images> saveImages (Long workId, List<MultipartFile> files);
 
     byte[] downloadImage(Long id);
 
     List<WorkOfArt_Images> getAllImages();
+
+    void deleteAll();
 }

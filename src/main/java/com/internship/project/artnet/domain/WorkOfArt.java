@@ -1,6 +1,7 @@
 package com.internship.project.artnet.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,23 +19,32 @@ public class WorkOfArt {
 
     private String name;
     private String concept;
-    private Double price;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "work")
+    private List<WorkOfArt_Images> images;
 
+    @ManyToMany(mappedBy = "works")
+    private List<Admirer> admirers;
 
     @ManyToOne
-    private Classifications classification;
-    @ManyToOne
-    private Admirer admirer;
+    private Artist artist;
+
     @ManyToOne
     @JoinColumn(name = "exposition_id")
     private Exposition exposition;
 
+    @ManyToOne
+    private Classifications classification;
 
-    public WorkOfArt(String name, String concept, Double price) {
+    public WorkOfArt(String name, String concept) {
         this.name = name;
         this.concept = concept;
-        this.price = price;
+    }
+
+    public WorkOfArt(Long id, String name, String concept) {
+        this.id = id;
+        this.name = name;
+        this.concept = concept;
     }
 
 

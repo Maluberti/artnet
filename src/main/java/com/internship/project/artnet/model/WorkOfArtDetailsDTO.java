@@ -14,6 +14,4 @@ public class WorkOfArtDetailsDTO extends WorkOfArtDTO{
 
 
     private AdmirerDTO admirer;
-    @JsonProperty("images")
-    private List<WorkOfArt_ImagesDTO> images;
 }

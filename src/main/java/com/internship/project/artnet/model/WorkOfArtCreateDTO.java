@@ -15,7 +15,6 @@ public class WorkOfArtCreateDTO {
     private String name;
     private String concept;
     private Double price;
-    private List<MultipartFile> images;
     private Long classificationId;
     private Long expositionId;
 

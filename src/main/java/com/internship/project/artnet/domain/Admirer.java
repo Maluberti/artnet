@@ -16,8 +16,11 @@ import java.util.*;
 public class Admirer extends Users {
     private Boolean is_shark;
 
-    @OneToMany( mappedBy = "admirer") //mappedby define quem eh a tabela pai -- nesse caso recipe eh a tabela pai e na relacao manytoone quem recebe a chave estrangeira eh ingredients que eh a tabela filho
-    private List<WorkOfArt> work = new ArrayList<>();
+    @ManyToMany  // manyto many gera uma terceira tabela e o jointable fala como montar
+    @JoinTable(name = "Admirer_fav_works",  //nome
+            joinColumns = @JoinColumn(name = "admirer_id"),  //deste "lado" temos os id de receita
+            inverseJoinColumns = @JoinColumn(name = "work_id"))  // do outro lado os id da categoria
+    private List<WorkOfArt> works = new ArrayList<>();
 
     @ManyToMany  // manyto many gera uma terceira tabela e o jointable fala como montar
     @JoinTable(name = "Admirer_fav_Artists",  //nome

@@ -78,15 +78,15 @@ public class Bootstrap implements ApplicationRunner {
         styleList2.add(style4);
 
         List<WorkOfArt> workOfArtList = new ArrayList<>();
-        WorkOfArt work1 = new WorkOfArt("work 1", "concept work1", 150.00);
+        WorkOfArt work1 = new WorkOfArt("work 1", "concept work1");
         workOfArtList.add(work1);
-        WorkOfArt work2 = new WorkOfArt("work 2", "concept work2", 120.00);
+        WorkOfArt work2 = new WorkOfArt("work 2", "concept work2");
         workOfArtList.add(work2);
 
         List<WorkOfArt> workOfArtList2 = new ArrayList<>();
-        WorkOfArt work3 = new WorkOfArt("work 3", "concept work3", 130.00);
+        WorkOfArt work3 = new WorkOfArt("work 3", "concept work3");
         workOfArtList2.add(work3);
-        WorkOfArt work4 = new WorkOfArt("work 4", "concept work4", 140.00);
+        WorkOfArt work4 = new WorkOfArt("work 4", "concept work4");
         workOfArtList2.add(work4);
 
         artistRepository.saveAll(artistList);
@@ -102,11 +102,11 @@ public class Bootstrap implements ApplicationRunner {
         workOfArtRepository.saveAll(workOfArtList);
         workOfArtRepository.saveAll(workOfArtList2);
 
-        admirer1.setWork(workOfArtList);
+        admirer1.setWorks(workOfArtList);
         admirer1.setArtists(artistList);
         admirer1.setExpositions(expositionList);
 
-        admirer2.setWork(workOfArtList2);
+        admirer2.setWorks(workOfArtList2);
         admirer2.setArtists(artistList2);
         admirer2.setExpositions(expositionList2);
 
@@ -138,20 +138,19 @@ public class Bootstrap implements ApplicationRunner {
         style4.setArtists(artistList2);
 
         work1.setClassification(classification1);
-        work1.setAdmirer(admirer1);
+
         work1.setExposition(exposition);
 
         work2.setClassification(classification1);
-        work2.setAdmirer(admirer1);
+
         work2.setExposition(exposition);
 
         work3.setClassification(classification2);
-        work3.setAdmirer(admirer2);
+
         work3.setExposition(exposition2);
 
-        work1.setClassification(classification2);
-        work1.setAdmirer(admirer2);
-        work1.setExposition(exposition2);
+        work4.setClassification(classification2);
+
 
         artistRepository.saveAll(artistList);
         artistRepository.saveAll(artistList2);

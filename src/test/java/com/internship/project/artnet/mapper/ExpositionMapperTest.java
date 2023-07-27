@@ -45,7 +45,8 @@ public void expositionToExpositionDTO()throws Exception{
     @Test
     public void expositionDTOToExposition()throws Exception{
         //given
-        ExpositionDTO expositionDTO = new ExpositionDTO( ID, NAME, CONCEPT, INSPIRATION,STARTDATE,ENDDATE,ARTIST.getId());
+        Artist artist = new Artist("testName", "testEmail","testPassword", true, false, 123,"Hello its me");
+        ExpositionDTO expositionDTO = new ExpositionDTO( ID, NAME, CONCEPT, INSPIRATION,STARTDATE,ENDDATE,artist.getId());
 
 
         //when

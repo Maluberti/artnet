@@ -168,18 +168,16 @@ public class AdmirerServiceTest {
         admirer.setId( admirerId);
 
         List<WorkOfArt> workOfArts = new ArrayList<>();
-        WorkOfArt workOfArt1 = new WorkOfArt("test1", "concept1",200.0);
+        WorkOfArt workOfArt1 = new WorkOfArt("test1", "concept1");
         workOfArt1.setId(1L);
-        workOfArt1.setAdmirer(admirer);
-        workOfArt1.setAdmirer(admirer);
-        WorkOfArt workOfArt2 = new WorkOfArt("test2", "concept2",250.0);
+
+        WorkOfArt workOfArt2 = new WorkOfArt("test2", "concept2");
         workOfArt2.setId(2L);
-        workOfArt2.setAdmirer(admirer);
-        workOfArt2.setAdmirer(admirer);
+
         workOfArts.add(workOfArt1);
         workOfArts.add(workOfArt2);
 
-        admirer.setWork(workOfArts);
+
         Mockito.when(admirerRepository.findById(admirerId)).thenReturn(Optional.of(admirer));
 
         // Act

@@ -25,6 +25,9 @@ public class Artist extends Users {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "artist")
     private List<Exposition> expositions;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "artist")
+    private List<WorkOfArt> works;
+
     @ManyToMany(mappedBy = "artists") // as instrucoes da tabela de uniao vao estar atreladas a categories, campo de recipe
     private List<Admirer> admirers = new ArrayList<>();
 

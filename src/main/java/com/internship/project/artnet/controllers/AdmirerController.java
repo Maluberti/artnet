@@ -53,7 +53,7 @@ public class AdmirerController {
         return toDTO(admirerService.getAdmirerById(id));
     }
 
-    @Operation(summary = "Return a list of WorkOfArts Acquired by Admirer id")
+    @Operation(summary = "Return a list of WorkOfArts liked by Admirer id")
     @GetMapping({"/{id}/workOfArts"})
     @ResponseStatus(HttpStatus.OK)
     public WorkOfArtListDTO getAcquiredWorkOfArtsById(@PathVariable Long id){

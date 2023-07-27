@@ -93,7 +93,7 @@ public class AdmirerServiceImpl implements AdmirerService{
     public List<WorkOfArt> getAcquiredWorkOfArtsById(Long id) {
         Admirer admirer = admirerRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Admirer " + id + "not found!"));
-        return (List<WorkOfArt>) admirer.getWork();
+        return (List<WorkOfArt>) admirer.getWorks();
     }
 
     @Override

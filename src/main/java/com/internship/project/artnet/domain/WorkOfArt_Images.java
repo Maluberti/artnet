@@ -15,10 +15,11 @@ public class WorkOfArt_Images {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String title;
-    private String description;
     private String imagePath;
     private String imageFileName;
+
+    @ManyToOne
+    private WorkOfArt work;
 
 
 }

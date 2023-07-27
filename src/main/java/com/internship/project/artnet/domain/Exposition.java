@@ -31,7 +31,7 @@ public class Exposition {
     @ManyToOne
     private Artist artist;
 
-    @ManyToMany(mappedBy = "expositions") // as instrucoes da tabela de uniao vao estar atreladas a categories, campo de recipe
+    @ManyToMany(mappedBy = "expositions")
     private List<Admirer> admirers = new ArrayList<>();
 
     public Exposition( String name, String concept, String inspiration, LocalDate startDate, LocalDate endDate, Artist artist) {

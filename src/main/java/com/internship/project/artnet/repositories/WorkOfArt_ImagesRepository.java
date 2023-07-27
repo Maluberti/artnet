@@ -4,6 +4,6 @@ import com.internship.project.artnet.domain.WorkOfArt_Images;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 
-public interface WorkOfArt_ImagesRepository extends CrudRepository<WorkOfArt_Images, Long> {
-        WorkOfArt_Images findByTitle(String title);
+public interface WorkOfArt_ImagesRepository extends JpaRepository<WorkOfArt_Images, Long> {
+
 }

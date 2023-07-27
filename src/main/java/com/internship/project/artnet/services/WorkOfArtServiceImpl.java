@@ -55,9 +55,6 @@ public class WorkOfArtServiceImpl implements WorkOfArtService{
             if(work.getConcept() != null){
                 savedWork.setConcept(work.getConcept());
             }
-            if(work.getPrice() != null){
-                savedWork.setPrice(work.getPrice());
-            }
             return workOfArtRepository.save(savedWork);
 
         }).orElseThrow(() -> new ResourceNotFoundException("Work Of Art " + id + " not found!"));

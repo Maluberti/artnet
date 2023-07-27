@@ -87,6 +87,5 @@ public class WorkOfArtController {
         return workOfArtDTO;
     }
 
-    private WorkOfArt toWorkOfArt(WorkOfArtDTO workOfArtDTO){return workOfArtMapper.workOfArtDTOToWorkOfArt(workOfArtDTO);}
     private WorkOfArt toWorkOfArt(WorkOfArtCreateDTO workOfArtDTO){return workOfArtMapper.workOfArtDTOToWorkOfArt(workOfArtDTO);}
 }

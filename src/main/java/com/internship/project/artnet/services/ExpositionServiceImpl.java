@@ -36,6 +36,7 @@ public class ExpositionServiceImpl implements ExpositionService {
 
     @Override
     public Exposition createNewExposition(Exposition exposition) {
+        System.out.println(exposition.getArtist().getId());
         return expositionRepository.save(exposition);
     }
 

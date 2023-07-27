@@ -101,10 +101,21 @@
 		<!-- https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk -->
 		<dependency>
 			<groupId>com.amazonaws</groupId>
-			<artifactId>aws-java-sdk</artifactId>
-			<version>1.11.931</version>
-			<scope>provided</scope>
+			<artifactId>aws-java-sdk-s3</artifactId>
+			<version>1.12.513</version>
 		</dependency>
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk-core</artifactId>
+			<version>1.12.510</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>42.6.0</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
